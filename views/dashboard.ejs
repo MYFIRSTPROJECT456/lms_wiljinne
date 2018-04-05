@@ -1,0 +1,546 @@
+<!DOCTYPE html>
+<!--[if IE 8]> <html lang="en" class="ie8"> <![endif]-->
+<!--[if !IE]><!-->
+<html lang="en">
+<!--<![endif]-->
+<%- include lib/dy/apicalh01.ejs %>
+<% var refids=[]; %>
+<script type="text/javascript">
+  var Screenfields=[];
+  var currentcount=0;
+  var selectedIds=[];
+  var groupcount=0;
+  var totalcount;
+</script>
+
+<!-- styles -->
+
+<link href="assets/css/demo.css" rel="stylesheet">
+<link href="assets/plugins/fullcalendar/fullcalendar.print.css" rel="stylesheet" media='print' />
+<link href="assets/plugins/fullcalendar/fullcalendar.min.css" rel="stylesheet" />
+<script src="assets/modelclasses/ddhelper.js"></script>
+<!-- Add IntroJs styles -->
+<link href="assets/css/introjs.css" rel="stylesheet">
+<script>
+  function startTour() {
+    var tour = introJs()
+    tour.setOption('tooltipPosition', 'auto');
+    tour.setOption('positionPrecedence', ['left', 'right', 'bottom', 'top'])
+    tour.start()
+  }
+</script>
+
+<style type="text/css">
+input,textarea,select,.multipleSelect,.selectpicker,.datepicker{
+  margin:0 0 10px 0;
+}
+
+.element {
+  position: relative;
+  top: 50%;
+  transform: translateY(-10%);
+}
+
+.card {
+  border: 2px solid #a1a1a1;
+  padding: 10px;
+  margin-left: auto;
+  margin-right: auto;
+  background: #dddddd;
+  width: 100%;
+  border-radius: 5px;
+}
+
+#btnshow {
+  position: absolute;
+  z-index: 100;
+  left: 10%;
+  top: 0;
+}
+
+</style>
+<body>
+  <!-- begin #page-loader -->
+  <div id="page-loader" class="fade in"><span class="spinner"></span></div>
+  <!-- end #page-loader -->
+
+  <!-- begin #page-container -->
+  <div id="page-container" class="fade page-sidebar-fixed page-header-fixed">
+    <%- include lib/apicalh02 %>
+
+    <!-- begin #sidebar -->
+    <div id="sidebar" class="sidebar">
+      <!-- begin sidebar scrollbar -->
+      <div data-scrollbar="true" data-height="100%">
+        <!-- begin sidebar user -->
+        <ul class="nav">
+          <li class="nav-profile">
+            <div class="image">
+              <a href="javascript:;"><img src="assets/img/user.png" alt="" /></a>
+            </div>
+            <div class="info">
+             <%=user.enname  %>
+           </div>
+         </li>
+       </ul>
+       <!-- end sidebar user -->
+       <%- include lib/apicalm01 %>
+     </div>
+     <!-- end sidebar scrollbar -->
+   </div>
+   <!-- end #sidebar -->
+   <div id="content" class="content">
+    <div class="row">
+      <!-- begin col-3 -->
+
+      <div class="col-md-3 col-sm-6">
+
+          <div <% if(user.syno == '1'){%>  class="widget widget-stats bg-green" <%}else{%> class="widget widget-stats bg-green hover" onclick="window.location.href='/leadlist';" <% }%> >
+          <div class="stats-icon stats-icon-lg"><i class="fa fa-users fa-fw"></i></div>
+          <div class="stats-title">Total Leads </div>
+          <div class="stats-number"><%= kpis.tleads %></div>
+          <div class="stats-progress progress">
+              <div class="progress-bar" style="width: 00.0%;"></div>
+          </div>
+                    </div>
+                  
+                  </div>
+                  <!-- end col-3 -->
+
+                  <div class="col-md-3 col-sm-6" data-intro="This is Conversion ratio tab ">
+                    <div class="widget widget-stats bg-blue data-step=" 6 ">
+                     <div class="stats-icon stats-icon-lg "><i class="fa fa-exchange fa-fw "></i></div>
+                     <div class="stats-title ">Lead Overview</div>
+                     <div class="stats-number">&nbsp;</div>
+                     <div class="stats-progress progress ">
+                      <div class="progress-bar " style="width: 00.0%; "></div>
+                    </div>
+                      <!--  <div class="stats-desc ">Better than last week (40.5%)</div>
+                      -->   </div>
+                    </div>
+                <!--    end col-3 -->
+                    <!-- begin col-3 -->
+                    <div class="col-md-3 col-sm-6 data-step="7" data-intro="This is Pending Calls tab!" ">
+                     <div class="widget widget-stats bg-purple">
+                       <div class="stats-icon stats-icon-lg "><i class="fa fa-phone fa-fw "></i></div>
+                       <div class="stats-title ">Pending calls</div>
+                       <div class="stats-number "><%= kpis.ptasks %></div>
+                       <div class="stats-progress progress ">
+                        <div class="progress-bar " style="width: 00.0%; "></div>
+                      </div>
+<!--
+                        <div class="stats-desc ">Better than last week (76.3%)</div>
+                      -->
+                    </div>
+                  </div>
+              <!-- end col-3 -->
+                  <!-- begin col-3 -->
+
+                  <div class="col-md-3 col-sm-6 ">
+                    <div <% if(user.syno == '1'){%>  class="widget widget-stats bg-black" <%}else{%> class="widget widget-stats bg-black hover " onclick="window.location.href='/leadlist';" <% }%> >
+                     <div class="stats-icon stats-icon-lg"><i class="fa fa-bar-chart-o fa-fw "></i></div>
+                     <div class="stats-title ">Lead Funnel Overview</div>
+                     <div class="stats-number ">&nbsp;</div>
+                     <div class="stats-progress progress ">
+                      <div class="progress-bar" style="width: 00.0%; "></div>
+                    </div>
+                    </div>
+                  </div>   
+              <!-- end col-3 -->
+                </div>
+                <!-- end row -->
+
+                <!-- begin row -->
+                <div class="row ">
+                  <!-- begin col-12 -->
+                  <div class="col-md-12 ">
+                   <!-- begin wizard step-1 -->
+                   <div>
+                    <div class="panel panel-inverse ">
+                     <div class="panel-body "  style="margin: 5 0 0 0;">
+                       
+                      <div class="vertical-box  col-md-12"  style="margin-top: 3px">
+  <% if(user.syno != '1'){%><a href="#modal-dialog1" data-toggle="modal" class="btn btn-success btn-icon btn-circle" data-step=" 10 " data-intro="This is Floating button onclick this button lead creation popup will open you call add new lead on this popup ! " data-target="#modal-dialog1"  style="float: right;width: 40px;height: 40px;" data-backdrop="false"><i class="fa fa-plus fa-1x" style="margin-top: 12px;" ></i></a> <%} %>
+                        <div class="vertical-box-column p-5 col-md-4">
+                          <div id="external-events" class="fc-event-list">
+                            <div class="panel-group" id="accordion">
+                              <div class="panel panel-danger overflow-hidden">
+                                <div class="panel-heading">
+                                  <h3 class="panel-title">
+                                   <a class="accordion-toggle accordion-toggle-styled data-step="8" data-intro="This is OverDue Taskstab on click this tab open in drop down onclick particular task,Task pop up opens in this pop up page you can Assign a new tasks. using drag and drop you can schedule your Task meeting!"" data-toggle="collapse" data-parent="#accordion" href="#collapseOne">
+                                     <i class="fa fa-plus-circle pull-right"></i> 
+                                     OverDue Calls
+                                   </a>
+                                 </h3>
+                               </div>
+                               <div id="collapseOne" class="panel-collapse collapse in" style="max-height: 300px; overflow: auto;">
+                                <%
+                                key_overduetask.forEach (function(srvreq){
+                                %>
+                                <div class="fc-event  item" style="margin-left: 10px" id="<%=srvreq.txnid %>">
+
+                                  <label>Lead Name: </label>
+                                  <label>
+                                    <%=srvreq.title %>
+                                  </label>
+                                  <br>
+
+                                  <label>Call Date: </label>
+                                  <label>
+                                    <%=srvreq.start %>
+                                  </label>
+                                  <br>
+					
+				 <label>Assigned To: </label>
+                                  <label>
+                                    <%=srvreq.username %>
+                                  </label>
+                                  <br>
+                                </div>
+                                <%   }); %>
+                              </div>
+
+                            </div>
+                            <div class="panel panel-warning overflow-hidden">
+                              <div class="panel-heading">
+                                <h3 class="panel-title">
+                                 <a class="accordion-toggle accordion-toggle-styled collapsed" data-toggle="collapse" data-parent="#accordion" href="#collapseTwo">
+                                   <i class="fa fa-plus-circle pull-right"></i> 
+                                   Today's Calls
+                                 </a>
+                               </h3>
+                             </div>
+                             <div id="collapseTwo" class="panel-collapse collapse" style="max-height: 300px; overflow: auto;">
+                              <%
+                              key_currenttask.forEach (function(srvreq){
+                              %>
+                             <div class="fc-event item" style="margin-left: 10px" id="<%=srvreq.txnid %>">
+
+                                  <label>Lead name: </label>
+                                  <label>
+                                    <%=srvreq.title %>
+                                  </label>
+                                  <br>
+
+                                  <label>Call date: </label>
+                                  <label>
+                                    <%=srvreq.start %>
+                                  </label>
+                                  <br>
+
+                                <label>Assigned To: </label>
+                                  <label>
+                                    <%=srvreq.username %>
+                                  </label>
+                                  <br>
+                                </div>
+                            
+                              <%   }); %>
+
+                            </div>
+                          </div>
+                          <div class="panel panel-success overflow-hidden">
+                            <div class="panel-heading">
+                              <h3 class="panel-title">
+                               <a class="accordion-toggle accordion-toggle-styled collapsed" data-toggle="collapse" data-parent="#accordion" href="#collapseThree">
+                                 <i class="fa fa-plus-circle pull-right"></i> 
+                                 Upcoming Calls
+                               </a>
+                             </h3>
+                           </div>
+                           <div id="collapseThree" class="panel-collapse collapse" style="max-height: 300px; overflow: auto;">
+                            <%
+                            key_upcomingtask.forEach (function(srvreq){
+                            %>
+                           <div class=" fc-event item" style="margin-left: 10px" id="<%=srvreq.txnid %>">
+
+                                <label>Lead name: </label>
+                                <label>
+                                  <%=srvreq.title %>
+                                </label>
+                                <br>
+
+                                <label>Call date: </label>
+                                <label>
+                                  <%=srvreq.start %>
+                                </label>
+                                <br>
+
+				 <label>Assigned To: </label>
+                                  <label>
+                                    <%=srvreq.username %>
+                                  </label>
+                                  <br>
+				
+                              </div>
+                            
+                            <%   }); %>
+
+                          </div>
+                        </div>
+                        <div class="panel overflow-hidden"  style="background-color: #e6e6e6;">
+                          <div class="panel-heading">
+                            <h3 class="panel-title">
+                              <a class="accordion-toggle accordion-toggle-styled collapsed" data-toggle="collapse" data-parent="#accordion" href="#collapseFour">
+                                <i class="fa fa-plus-circle pull-right"></i> 
+                                Unplanned Leads
+                              </a>
+                            </h3>
+                          </div>
+                          <div id="collapseFour" class="panel-collapse collapse" style="max-height: 300px; overflow: auto;">
+                            <%
+                            key_unplannedtask.forEach (function(srvreq){
+                            %>
+                             <div class="fc-event item" style="margin-left: 10px" id="<%=srvreq.txnid %>">
+                                <label>Lead name: </label>
+                                <label>
+                                  <%=srvreq.title %>
+                                </label>
+                                <br>
+
+				                <label>Assigned To: </label>
+                                  <label>
+                                    <%=srvreq.username %>
+                                  </label>
+                                  <br>
+                              </div>
+                            </a>
+                            <%   }); %>
+
+                          </div>
+                        </div>
+
+                        <br>
+                     
+                      </div>
+                    </div>
+                  </div>
+                   
+                   <div id="calendar" class="vertical-box-column p-5 calendar  col-md-8">
+                                      
+                    <br>
+                  </div>
+                </div>
+              </div>
+            </div>
+
+          </div>
+          <!-- end wizard step-1 -->
+
+        </div>
+        <!-- end panel -->
+      </div>
+
+
+      <!-- end row -->
+      <!-- end #content -->
+
+      <div class="modal fade" id="modal-dialog1">
+        <div class="modal-dialog modal-lg">">
+          <div class="modal-content">
+            <div class="modal-header">
+              <button type="button" class="close" data-dismiss="modal" aria-hidden="true">×</button>
+              <h4 class="modal-title">Lead Creation</h4>
+            </div>
+            <div class="modal-body">
+              <div class="row">
+                <form action="/" method="POST" id="formf" data-parsley-validate="true">
+                  <%- include lib/dy/apicaldyf01.ejs %>
+                </form>
+              </div>
+            </div>
+            <div class="modal-footer">
+              <a href="javascript:;" class="btn btn-sm btn-white" data-dismiss="modal">Close</a>
+              <a href="javascript:onUpdate();" id="btnupdate" class="btn btn-sm btn-white" style="display: none;">Update</a>
+              <a href="javascript:onValidate();" class="btn btn-sm btn-success">Save</a>
+            </div>    
+          </div>
+
+        </div>
+      </div>
+    </div>
+    <a href="javascript:;" class="btn btn-icon btn-circle btn-success btn-scroll-to-top fade" data-click="scroll-top"><i class="fa fa-angle-up"></i></a>
+
+  </div>
+
+  <%- include lib/apicalf02.ejs %>
+  <!-- end page container -->
+
+  <!-- ================== BEGIN BASE JS ================== -->
+  <script src="assets/plugins/fullcalendar/lib/moment.min.js"></script>
+  <!-- ================== END BASE JS ================== -->
+  <!-- ================== BEGIN PAGE LEVEL JS ================== -->
+  <script src="assets/plugins/fullcalendar/fullcalendar.min.js"></script>
+  <script src="assets/js/apical/calendar.demo.js"></script>
+  <script src="assets/js/apps.min.js"></script>
+  <script src="assets/plugins/parsley/dist/parsley.js"></script>
+  <!-- ================== END PAGE LEVEL JS ================== -->
+  <script type="text/javascript" src="assets/js/intro.js"></script>
+
+  <script>
+    $(document).ready(function() {
+      App.init();
+      Calendar.init();
+      $('select').each(
+        function(index){  
+          var input = $(this);
+          var api=input.attr('api');
+          /*alert('Api: ' + input.attr('api'));*/
+          $.ajax({
+            type: "GET",
+            url: ""+api,
+            timeout: 200000,
+            contentType: 'application/json',
+            success: function(data)
+            {
+              helpers.buildDropdown(
+                JSON.parse(JSON.stringify(data)),
+                input,
+                'Select an option'
+                );
+            }
+          });
+
+        });
+      $(".datepicker").datepicker({ dateFormat: 'dd/mm/yy' });
+    });
+  </script>
+
+<script>
+ function onValidate() {
+                      //  alert("funcntion called");
+                      /*    var scrno = '555';*/
+                      var form = $('#formf');
+                      form.parsley().validate();
+                      if (form.parsley().isValid()) {
+//                            alert('valid');
+					var formdata = $('#formf').serializeArray();
+
+                            //structure json
+                            var data = formdata.reduce(function(a, x) {
+                              a[x.name] = x.value;
+                              return a;
+                            }, {});
+                            Screenfields.push(data);
+                          //  alert(JSON.stringify(Screenfields));
+                          $.ajax({
+                            type: "POST",
+                            url: "/savedata",
+                            timeout: 200000,
+                            contentType: 'application/json',
+                            data: JSON.stringify({
+                              scrid: "575",
+                              formdata: JSON.stringify(Screenfields)
+                            }),
+                            success: function(data) {
+                              var fdata = JSON.parse(JSON.stringify(data));
+                              if (fdata.status == '1') {
+                                Screenfields = [];
+                                totalcount=fdata.new_id;
+                                $('#btnupdate').show();
+                                alert("Data saved successfully");
+                                //$('#formf').trigger("reset");
+                               // $('#modal-dialog1').modal('hide');
+                              } else {
+
+                               alert(fdata.err_msg);
+                               Screenfields = [];
+                             }
+                           }
+
+                         });
+                        } else {
+                          alert('Form not valid');
+                        }
+                      };
+                    </script>
+ 
+
+  <script type="text/javascript">
+    function ondValidate() {
+      var status=false;
+                        //alert("funcntion called");
+                        // var scrno = 564;
+                        var form = $('#formd');
+                        form.parsley().validate();
+                        if (form.parsley().isValid()) {
+                          //  alert('valid');
+                          $("input[name='duedate']").removeAttr('disabled');
+                          var formdata = $('#formd').serializeArray();
+                          $("input[name='duedate']").attr('disabled', 'disabled');
+                            //structure json
+                            var data = formdata.reduce(function(a, x) {
+                              a[x.name] = x.value;
+                              return a;
+                            }, {});
+                            Screenfields.push(data);
+
+                            //alert(JSON.stringify(Screenfields));
+                            $.ajax({
+                              type: "POST",
+                              url: "/savedata",
+                              timeout: 2000,
+                              contentType: 'application/json',
+                              data: JSON.stringify({
+                                scrid: "579",
+                                formdata: JSON.stringify(Screenfields)
+                              }),
+                              success: function(data) {
+                                var fdata = JSON.parse(JSON.stringify(data));
+                                if (fdata.status == '1') {
+                                  Screenfields = [];
+                                  alert("Data saved successfully");
+                                  
+                                  $('#formd').trigger("reset");
+                                  $('#modal-dialog').modal('hide');
+
+                                  $.ajax({
+                                    type: "POST",
+                                    url: "/updatetask",
+                                    timeout: 6000,
+                                    contentType: 'application/json',
+                                    data: JSON.stringify({id: groupcount,
+                                     formdata: JSON.stringify(data) 
+                                   }),
+                                    success: function(response) {
+                                      window.location.reload();
+                                    }
+                                  });
+
+
+                                } else {
+                                  /*      $('#formd').trigger("reset");*/
+                                  alert(fdata.err_msg);
+                                  Screenfields = [];
+                                }
+                              }
+                            });
+                          } else {
+                            alert('Form not valid');
+                          }
+                        };
+
+
+                        function onUpdate(){
+                          document.getElementById('lval').value=totalcount;
+                          var form = $('#lform');
+                          form.attr('action', '/historydata');
+                          form.attr('method', 'POST');
+                          form.submit();
+                          
+                        }
+                        $(".item").click(function(){
+                          var id = $(this).attr("id");
+                         document.getElementById('lval').value=id;
+                          var form = $('#lform');
+                          form.attr('action', '/historydata');
+                          form.attr('method', 'POST');
+                          form.submit();
+                        });
+
+
+                      </script>
+                    </body>
+
+                    </html>
+

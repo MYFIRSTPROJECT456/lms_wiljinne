@@ -1,0 +1,570 @@
+<!DOCTYPE html>
+<!--[if IE 8]> 
+<html lang="en" class="ie8">
+   <![endif]-->
+   <!--[if !IE]><!-->
+   <html lang="en">
+      <!--<![endif]-->
+      <%- include lib/apicalh01 %>
+      <% var pagename="MIS Report" %>
+      <!-- ================== BEGIN PAGE LEVEL STYLE ================== -->
+      <link href="assets/plugins/bootstrap-datepicker/css/bootstrap-datepicker.css" rel="stylesheet" />
+      <link href="assets/plugins/bootstrap-datepicker/css/bootstrap-datepicker3.css" rel="stylesheet" />
+      <link href="assets/plugins/ionRangeSlider/css/ion.rangeSlider.css" rel="stylesheet" />
+      <link href="assets/plugins/ionRangeSlider/css/ion.rangeSlider.skinNice.css" rel="stylesheet" />
+      <link href="assets/plugins/bootstrap-timepicker/css/bootstrap-timepicker.min.css" rel="stylesheet" />
+      <link href="assets/plugins/bootstrap-daterangepicker/daterangepicker.css" rel="stylesheet" />
+      <link href="assets/plugins/bootstrap-eonasdan-datetimepicker/build/css/bootstrap-datetimepicker.min.css" rel="stylesheet" />
+      <link href="assets/plugins/DataTables/media/css/dataTables.bootstrap.min.css" rel="stylesheet" />
+      <link href="assets/plugins/DataTables/extensions/Buttons/css/buttons.bootstrap.min.css" rel="stylesheet" />
+      <link href="assets/plugins/DataTables/extensions/Scroller/css/scroller.bootstrap.min.css" rel="stylesheet" />
+      <link href="assets/plugins/DataTables/extensions/Responsive/css/responsive.bootstrap.min.css" rel="stylesheet" />
+      <link href="assets/plugins/bootstrap-colorpicker/css/bootstrap-colorpicker.min.css" rel="stylesheet" />
+      <link href="assets/plugins/bootstrap-timepicker/css/bootstrap-timepicker.min.css" rel="stylesheet" />
+      <link href="assets/plugins/password-indicator/css/password-indicator.css" rel="stylesheet" />
+      <link href="assets/plugins/bootstrap-combobox/css/bootstrap-combobox.css" rel="stylesheet" />
+      <link href="assets/plugins/bootstrap-select/bootstrap-select.min.css" rel="stylesheet" />
+      <link href="assets/plugins/bootstrap-tagsinput/bootstrap-tagsinput.css" rel="stylesheet" />
+      <link href="assets/plugins/jquery-tag-it/css/jquery.tagit.css" rel="stylesheet" />
+      <link href="assets/plugins/bootstrap-daterangepicker/daterangepicker.css" rel="stylesheet" />
+      <link href="assets/plugins/select2/dist/css/select2.min.css" rel="stylesheet" />
+      <link href="assets/plugins/bootstrap-colorpalette/css/bootstrap-colorpalette.css" rel="stylesheet" />
+      <link href="assets/plugins/jquery-simplecolorpicker/jquery.simplecolorpicker.css" rel="stylesheet" />
+      <link href="assets/plugins/jquery-simplecolorpicker/jquery.simplecolorpicker-fontawesome.css" rel="stylesheet" />
+      <link href="assets/plugins/jquery-simplecolorpicker/jquery.simplecolorpicker-glyphicons.css" rel="stylesheet" />
+      <!-- ================== END PAGE LEVEL STYLE ================== -->
+      <script>
+         function startTour() {
+             var tour = introJs()
+             tour.setOption('tooltipPosition', 'auto');
+             tour.setOption('positionPrecedence', ['left', 'right', 'bottom', 'top'])
+             tour.start()
+         }
+      </script>
+      <script type="text/javascript">
+         var Screenfields = [];
+         var currentcount = 0;
+         var selectedIds = [];
+         var groupcount = 1;
+         var custid = '';
+         var dummyhit = 0;
+      </script>
+      <style type="text/css">
+         input,
+         textarea,
+         select,
+         .multipleSelect,
+         .selectpicker,
+         .datepicker {
+         margin: 0 0 10px 0;
+         }
+         .element {
+         position: relative;
+         top: 50%;
+         transform: translateY(-10%);
+         }
+      </style>
+      <body>
+         <!-- begin #page-loader -->
+         <div id="page-loader" class="fade in"><span class="spinner"></span></div>
+         <!-- end #page-loader -->
+         <!-- begin #page-container -->
+         <div id="page-container" class="fade page-sidebar-fixed page-header-fixed">
+            <%- include lib/apicalh02 %>
+            <!-- begin #sidebar -->
+            <div id="sidebar" class="sidebar">
+               <!-- begin sidebar scrollbar -->
+               <div data-scrollbar="true" data-height="100%">
+                  <!-- begin sidebar user -->
+                  <ul class="nav">
+                     <li class="nav-profile">
+                        <div class="image">
+                           <a href="javascript:;"><img src="assets/img/user.png" alt="" /></a>
+                        </div>
+                        <div class="info">
+                           <%=user.enname  %>
+                        </div>
+                     </li>
+                  </ul>
+                  <!-- end sidebar user -->
+                  <%- include lib/apicalm01 %>
+               </div>
+               <!-- end sidebar scrollbar -->
+            </div>
+            <!-- end #sidebar -->
+            <!-- begin #content -->
+            <div id="content" class="content">
+               <!-- begin page-header -->
+               <!-- <h6 class="page-header">Lead List</h6> -->
+               <!-- end page-header -->
+               <!-- begin row -->
+               <div class="row">
+                  <!-- begin col-12 -->
+                  <div class="col-md-12">
+                     <!-- begin panel -->
+                     <div class="panel panel-inverse">
+                        <div class="panel-heading">
+                           <div class="panel-heading-btn element">
+                              <a href="javascript:reset();" class="btn btn-xl btn-icon btn-circle btn-success"><i class="fa fa-refresh" ></i></a>
+                           </div>
+                           <h4 class="panel-title"><%= pagename %></h4>
+                        </div>
+                        <div style="margin-top: 15px;" class="container-fluid">
+                           <div class="col-md-12">
+                              <div class="row">
+                                 <div class="col-md-5">
+                                    <label class="col-md-3 control-label">Date</label>
+                                    <div class="col-md-9">
+                                       <div class="input-group input-daterange">
+                                          <input type="text"  class="form-control" name="start" placeholder="Date Start" id="start"/>
+                                          <span class="input-group-addon">to</span>
+                                          <input type="text" class="form-control" name="end" placeholder="Date End"  id="end" />
+                                       </div>
+                                    </div>
+                                 </div>
+                                 <div class="col-md-6">
+                                    <label class="col-md-3 control-label">Assign To</label>
+                                    <div class="col-md-9">
+                                       <select class=" form-control multipleSelect" name="assign" api="/v1/getmisdrop" placeholder="Select Company" id="assignto" multiple style="width: 100%" required>
+                                       </select>
+                                    </div>
+                                 </div>
+                              </div>
+                           </div>
+                        </div>
+                        <div class="container-fluid">
+                           <div class="col-md-12">
+                              <div class="row">
+                                 <div class="col-md-5">
+                                    <label class="col-md-3 control-label">Stage</label>
+                                    <div class="col-md-9">
+                                       <select class="form-control" name="leadtypevalue" id="leadtypelist">
+                                          <option value="" selected>Select Stage</option>
+                                          <% leadtype.forEach(function(list){%>                     
+                                          <option value="<%=list.cvid%>"><%=list.cvvalule%></option>
+                                          <%});%>
+                                       </select>
+                                    </div>
+                                 </div>
+                                 <div class="col-md-6">
+                                    <label class="col-md-3 control-label">Status</label>
+                                    <div class="col-md-9">
+                                       <select class="form-control" name="statusvalue" id="statuslist">
+                                          <option value="" selected>Select Status</option>
+                                          <% status.forEach(function(list){%>                     
+                                          <option value="<%=list.cvid%>"><%=list.cvvalule%></option>
+                                          <%});%>    
+                                       </select>
+                                    </div>
+                                 </div>
+                                 <a href="javascript:filter()" style="float:right; margin-left: 5px;" class="btn btn-primary btn-sm">Filter</a>
+                              </div>
+                           </div>
+                        </div>
+                        <div class="panel-body">
+                           <!-- begin row -->
+                           <div class="row">
+                              <!-- begin col-4 -->
+                              <a href="#modal-dialog1" data-toggle="modal" style="float:right; margin-left: 5px;" class="btn btn-primary btn-sm">Allocate</a>
+                              <table id="data-table1" class="table table-striped table-bordered">
+                                 <thead>
+                                    <tr>
+                                       <th>Lead Name</th>
+                                       <th>Number</th>
+                                       <th>Email</th>
+                                       <th>Source</th>
+                                       <th>Address</th>
+                                       <th>Status</th>
+                                       <th>Assign To</th>
+                                       <th>Lead Type</th>
+                                    </tr>
+                                 </thead>
+                                 <tbody>
+                                 </tbody>
+                              </table>
+                           </div>
+                        </div>
+                        <!-- <a class="btn btn-success btn-icon btn-circle" href="" data-toggle="modal" data-backdrop="false" style="float: right;width: 40Px;height: 40px;"><i class="fa fa-plus fa-1x" style="margin-top: 12px;" ></i></a> -->
+
+
+                        <!-- <div class="modal fade" id="modal-dialog1">
+                            <div class="modal-dialog modal-sm">">
+                              <div class="modal-content">
+                                <div class="modal-header">
+                                  <button type="button" class="close" data-dismiss="modal" aria-hidden="true">×</button>
+                                  <h4 class="modal-title">Allocation Screen</h4>
+                                </div>
+                                <div class="modal-body">
+                                  <div class="row">
+                                    <form action="/" method="POST" id="formf" data-parsley-validate="true">
+                                        <div class="col-md-12">
+                                       
+                                        <div class="form-group">
+                                            <label class="control-label">Number of Leads </label>
+                                            <input type="text" class="form-control" name="noleads" value="">
+                                        
+                                            <label class="control-label">Users </label>
+                                            <div>
+                                               <select class=" form-control multipleSelect" name="users" api="/v1/getmisdrop" placeholder="Select Company" id="users" multiple style="width: 100%" required>
+                                               </select>
+                                            </div>
+                                         </div>
+                                         </div>
+                                    </form>
+                                  </div>
+                                </div>
+                                <div class="modal-footer">
+                                  <a href="javascript:;" class="btn btn-sm btn-white" data-dismiss="modal">Close</a>
+                                  <a href="javascript:onSubmit();" class="btn btn-sm btn-success">Save</a>
+                                </div>    
+                              </div>
+                    
+                            </div>
+                          </div> -->
+
+
+                        <div class="modal fade" id="modal-dialog1">
+                           <div class="modal-dialog modal-sm">
+                              <div class="modal-content">
+                                 <div class="modal-header">
+                                    <button type="button" class="close" data-dismiss="modal" aria-hidden="true">×</button>
+                                    <h4 class="modal-title">Allocation Screen</h4>
+                                 </div>
+                                 <div class="modal-body">
+                                        <div class="row">
+                                    <form action="/allocationdata" method="POST" id="form1" data-parsley-validate="true">
+                                      
+                                       <div class="col-md-12">
+                                          <div class="form-group">
+                                             <label class="control-label">Number of Leads </label>
+                                             <input type="text" class="form-control" name="noleads" value="">
+                                         
+                                             <label class="control-label">Users </label>
+                                             <div>
+                                                <select class=" form-control multipleSelect" name="users" api="/v1/getmisdrop" placeholder="Select Company" id="users" multiple style="width: 100%" required>
+                                                </select>
+                                             </div>
+                                          </div>
+                                       </div>
+                                    
+                                    </form>
+                                    </div>
+                                 </div>
+                                 <div class="modal-footer">
+                                    <a href="javascript:;" class="btn btn-sm btn-white" data-dismiss="modal">Close</a>
+                                    <a href="javascript:onSubmit();" class="btn btn-sm btn-success">Save</a>
+                                 </div>
+                              </div>
+                           </div>
+                        </div>
+                     </div>
+                     <!-- end col-4 -->
+                  </div>
+                  <!-- end row -->
+               </div>
+               <!-- end wizard step-1 -->
+            </div>
+         </div>
+        
+         <!-- <p class="text-center">
+            &copy; Apical Innovations All Right Reserved 2017
+            </p> -->
+         <!-- begin scroll to top btn -->
+         <a href="javascript:;" class="btn btn-icon btn-circle btn-success btn-scroll-to-top fade" data-click="scroll-top"><i class="fa fa-angle-up"></i></a>
+         <!-- end scroll to top btn -->
+         <!-- ================== BEGIN BASE JS ================== -->
+         <%- include lib/apicalf02.ejs %>
+         <!-- ================== END BASE JS ================== -->
+         <script src="assets/plugins/DataTables/media/js/jquery.dataTables.js"></script>
+         <script src="assets/plugins/DataTables/media/js/dataTables.bootstrap.min.js"></script>
+         <script src="assets/plugins/DataTables/extensions/Buttons/js/dataTables.buttons.min.js"></script>
+         <script src="assets/plugins/DataTables/extensions/Buttons/js/buttons.bootstrap.min.js"></script>
+         <script src="assets/plugins/DataTables/extensions/Buttons/js/buttons.flash.min.js"></script>
+         <script src="assets/plugins/DataTables/extensions/Buttons/js/jszip.min.js"></script>
+         <script src="assets/plugins/DataTables/extensions/Buttons/js/pdfmake.min.js"></script>
+         <script src="assets/plugins/DataTables/extensions/Buttons/js/vfs_fonts.min.js"></script>
+         <script src="assets/plugins/DataTables/extensions/Buttons/js/buttons.html5.min.js"></script>
+         <script src="assets/plugins/DataTables/extensions/Scroller/js/dataTables.scroller.min.js"></script>
+         <script src="assets/plugins/DataTables/extensions/Buttons/js/buttons.print.min.js"></script>
+         <script src="assets/plugins/DataTables/extensions/Responsive/js/dataTables.responsive.min.js"></script>
+         <script src="assets/js/apical/table-manage-scroller.demo.js"></script>
+         <script src="assets/plugins/parsley/dist/parsley.js"></script>
+         <!-- ================== BEGIN PAGE LEVEL JS ================== -->
+         <script src="assets/plugins/bootstrap-datepicker/js/bootstrap-datepicker.js"></script>
+         <script src="assets/plugins/ionRangeSlider/js/ion-rangeSlider/ion.rangeSlider.min.js"></script>
+         <script src="assets/plugins/bootstrap-colorpicker/js/bootstrap-colorpicker.min.js"></script>
+         <script src="assets/plugins/masked-input/masked-input.min.js"></script>
+         <script src="assets/plugins/bootstrap-timepicker/js/bootstrap-timepicker.min.js"></script>
+         <script src="assets/plugins/password-indicator/js/password-indicator.js"></script>
+         <script src="assets/plugins/bootstrap-combobox/js/bootstrap-combobox.js"></script>
+         <script src="assets/plugins/bootstrap-select/bootstrap-select.min.js"></script>
+         <script src="assets/plugins/bootstrap-tagsinput/bootstrap-tagsinput.min.js"></script>
+         <script src="assets/plugins/bootstrap-tagsinput/bootstrap-tagsinput-typeahead.js"></script>
+         <script src="assets/plugins/jquery-tag-it/js/tag-it.min.js"></script>
+         <script src="assets/plugins/bootstrap-daterangepicker/moment.js"></script>
+         <script src="assets/plugins/bootstrap-daterangepicker/daterangepicker.js"></script>
+         <script src="assets/plugins/select2/dist/js/select2.min.js"></script>
+         <script src="assets/plugins/bootstrap-eonasdan-datetimepicker/build/js/bootstrap-datetimepicker.min.js"></script>
+         <script src="assets/plugins/bootstrap-show-password/bootstrap-show-password.js"></script>
+         <script src="assets/plugins/bootstrap-colorpalette/js/bootstrap-colorpalette.js"></script>
+         <script src="assets/plugins/jquery-simplecolorpicker/jquery.simplecolorpicker.js"></script>
+         <script src="assets/js/form-plugins.demo.min.js"></script>
+         <script src="assets/js/apps.min.js"></script>
+         <!-- ================== END PAGE LEVEL JS ================== -->
+         <script type="text/javascript" src="assets/js/intro.js"></script>
+         <script>
+            $(document).ready(function() {
+                App.init();
+                FormPlugins.init();
+            $(".multipleSelect").select2({});
+            
+            $('select').each(
+                function(index) {
+                    var input = $(this);
+                    var api = input.attr('api');
+                    /*alert('Api: ' + input.attr('api'));*/
+                    if (api && input.attr('name') !== "data-table_length") {
+                        $.ajax({
+                            type: "GET",
+                            url: api,
+                            timeout: 6000,
+                            contentType: 'application/json',
+                            success: function(data) {
+                                    
+                                //alert("document list "+input.attr('name') +" "+JSON.stringify(data));
+                                if (input.hasClass("multipleSelect")) {
+                                    //alert("document list 1111");
+                                    helpers.buildMultiDropdown(
+                                        JSON.parse(JSON.stringify(data)),
+                                        input,
+                                        'Select an option'
+                                    );
+                                } else {
+                                    helpers.buildDropdown(
+                                        JSON.parse(JSON.stringify(data)),
+                                        input,
+                                        'Select an option'
+                                    );
+                                }
+                            },
+                            error: function(xhr, status, error) {
+                               // alert(status+" "+error.Message+" "+xhr.responseText); 
+                            }
+                        });
+                    }
+                }); 
+               
+                $.fn.dataTable.ext.errMode = 'none';
+                var table = $('#data-table1').DataTable({
+                    dom: 'lBfrtip',
+                    buttons: [
+                    { extend: 'copy', className: 'btn-sm' },
+                    { extend: 'csv', className: 'btn-sm' },
+                    { extend: 'excel', className: 'btn-sm' },
+                    { extend: 'pdf', className: 'btn-sm' },
+                    { extend: 'print', className: 'btn-sm' }
+                    ],
+            
+                    ajax: {
+                        "url": "/scrndata?id=" + <%- scrndtl.col2 %>,
+                        "dataType": "JSON"
+                    },
+                    "language": {
+                        "emptyTable": "No record found"
+                    },
+                    responsive: true,
+                    'rowCallback': function(row, data, index) {
+                       
+                            $(row).attr('id', data[11]);
+                            if (data[7] == "Hot") {
+                                $(row).find('td').css('background-color', '#ffcccc').css('font-weight', 'bold');
+                            } else if (data[7] == 'Warm') {
+                                $(row).find('td').css('background-color', '#ffd1b3').css('font-weight', 'bold');
+                            } else {
+                                $(row).find('td').css('background-color', '#e6f0ff').css('font-weight', 'bold');
+                            }
+                        
+                    }
+            
+                });
+            
+            
+            });
+            
+            function reset() {
+                // document.getElementById("form1").reset();
+                $('#data-table1').DataTable().ajax.reload();
+            };
+         </script>
+         <script>
+
+$('#modal-dialog1').on('show.bs.modal', function(e) {
+    //  var modal = $(this);
+    //  var users=$(e.currentTarget).getElementById("users")
+
+      
+                        var input = $("#users");
+                        var api=input.attr('api');
+                        /*alert('Api: ' + input.attr('api'));*/
+                        $.ajax({
+                            type: "GET",
+                            url: api,
+                            timeout: 6000,
+                            contentType: 'application/json',
+                            success: function(data)
+                            {
+                                // alert("document list "+data);
+                                if(input.hasClass("multipleSelect"))
+                                {
+                                   helpers.buildMultiDropdown(
+                                    JSON.parse(JSON.stringify(data)),
+                                    input,
+                                    'Select an option'
+                                );
+                                }
+                                else
+                                {
+                                  helpers.buildDropdown(
+                                    JSON.parse(JSON.stringify(data)),
+                                    input,
+                                    'Select an option'
+                                );
+                                }
+
+                                var multi=$("#assignto").val();
+                                var assign_to = '';
+                                if(multi){
+                                    assign_to = multi.toString();
+                                }else{
+                                    assign_to = '';  
+                                }
+                                //alert(assign_to);
+                                
+                                if(assign_to){
+                                    var assignies = assign_to.split(",");
+                                    for (var i=0; i<assignies.length; i++){
+                                        // if (assign_to.contains(users.options[i].value)){
+                                        //     users.remove(i);
+                                        // }
+                                        $("#users option[value='"+assignies[i]+"']").remove();
+                                    }
+                                }
+                            },error:function(xhr, status,error){
+                                // alert(status+" "+error.Message+" "+xhr.responseText); 
+                            } 
+                        });
+     
+});
+
+            function filter() {
+                // alert('123'+dummyhit);
+                // if(dummyhit >= 2){
+                    var multi=$("#assignto").val();
+                    var assign_to = '';
+                    if(multi){
+                        assign_to = multi.toString();
+                    }else{
+                        assign_to = '';  
+                    }
+                    var lead_type = $("#leadtypelist").val();
+                    var lead_status = $("#statuslist").val();
+                    //alert(lead_status);
+                    var end_date = document.getElementById('end').value;
+                    var start_date = document.getElementById('start').value;
+                    // alert("Data : "+multi+assign_to+" : " +lead_type+" : " +lead_status+" : " +start_date + " : " +end_date );
+                    $.ajax({
+                        type: "POST",
+                        url: "/assigntofilter",
+                        data: { assignto : assign_to,
+                                leadtype : lead_type,
+                                leadstatus : lead_status,
+                                startdate : start_date,
+                                enddate : end_date},
+                        success:function(result){
+                            var data = JSON.parse(JSON.stringify(result)).data;
+                            // alert("Filter data : "+JSON.stringify(data));
+                            $('#data-table1').dataTable().fnClearTable();
+                            $('#data-table1').dataTable().fnAddData(data);
+                            // $('#data-table1').dataTable()."language": {
+                            //      "emptyTable": "No record found"
+                            // }
+                        }
+                    });
+                // }else{
+                //     dummyhit = (dummyhit + 1);
+                // }
+            }
+
+            function onSubmit() {
+                    //alert("1");
+                                var form = $('#form1');
+                                form.parsley().validate();
+                                if (form.parsley().isValid()) {
+                                 var formdata = $('#form1').serializeArray();
+                                                    
+                           var data = formdata.reduce(function(a, x) {
+                            a[x.name] = x.value;
+                            return a;
+                           }, {});
+
+                           var multia=$("#users").val();
+                            if(multia !=null){
+                            data["users"]=multia.toString();
+                            }else{
+                            data["users"]='';  
+                            }
+
+                           Screenfields.push(data);
+                           var multi=$("#assignto").val();
+                            var assign_to = '';
+                            if(multi){
+                                assign_to = multi.toString();
+                            }else{
+                                assign_to = '';  
+                            }
+                            var lead_type = $("#leadtypelist").val();
+                            var lead_status = $("#statuslist").val();
+                            var end_date = document.getElementById('end').value;
+                            var start_date = document.getElementById('start').value;
+                        
+                          //alert("form data : "+ Screenfields);
+                           $.ajax({
+                            type: "POST",
+                            url: "/allocationdata",
+                            timeout: 6000,
+                            contentType: 'application/json',
+                            data: JSON.stringify({
+                                formdata: JSON.stringify(Screenfields),
+                                assignto : assign_to,
+                                leadtype : lead_type,
+                                leadstatus : lead_status,
+                                startdate : start_date,
+                                enddate : end_date
+                            }),
+                            success: function(data) {
+                                //alert("3");
+                                var fdata = JSON.parse(JSON.stringify(data));
+                                if (fdata.status == '0') {
+                                    //alert("4");
+                                    Screenfields = [];
+                                    alert("Data saved successfully");
+                                    $('#modal-dialog').modal('hide');
+                                    location.reload();
+                                } else {
+                                    //alert("5");
+                                    //alert(fdata.status_msg);
+                                    Screenfields = [];
+                                }
+                            },error:function(xhr, status,error){
+                                //alert("6");
+                                Screenfields = [];
+                            } 
+                           });
+                       } else {
+                           alert('Form not valid');
+            }
+            };
+         </script>
+         <script type="text/javascript"></script>
+      </body>
+   </html>

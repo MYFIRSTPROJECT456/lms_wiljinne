@@ -1,0 +1,243 @@
+<!DOCTYPE html>
+<!--[if IE 8]> <html lang="en" class="ie8"> <![endif]-->
+<!--[if !IE]><!-->
+<html lang="en">
+<!--<![endif]-->
+<%- include lib/dy/apicalh01.ejs %>
+<% var pagename="Dynamic"
+var refids=[];
+%>
+<link href="assets/plugins/DataTables/extensions/Scroller/css/scroller.bootstrap.min.css" rel="stylesheet" />
+<style type="text/css">
+	input,textarea,select,.multipleSelect,.selectpicker,.datepicker{
+		margin:0 0 10px 0;
+	}
+	.element {
+		position: relative;
+		top: 50%;
+		transform: translateY(-10%);
+	}
+</style>
+<script type="text/javascript">
+	var Screenfields=[];
+	var currentcount=0;
+	var selectedIds=[];
+	var groupcount=1;
+</script>
+<body>
+	<!-- begin #page-loader -->
+	<div id="page-loader" class="fade in"><span class="spinner"></span></div>
+	<!-- end #page-loader -->
+	
+	<!-- begin #page-container -->
+	<div id="page-container" class="fade page-sidebar-fixed page-header-fixed">
+		<%- include lib/apicalh02 %>
+		<div id="sidebar" class="sidebar">
+			<!-- begin sidebar scrollbar -->
+			<div data-scrollbar="true" data-height="100%">
+				<!-- begin sidebar user -->     <ul class="nav">
+				<li class="nav-profile">
+					<div class="image">
+						<a href="javascript:;">
+							<img src="" alt="" /></a>
+						</div>
+						<div class="info">
+							<small>Admin</small>
+						</div>
+					</li>
+					
+				</ul>
+				<%- include lib/apicalm01 %>
+				<!-- end sidebar user -->
+				<!-- begin sidebar nav -->
+				
+				<!-- end sidebar nav -->
+			</div>
+			<!-- end sidebar scrollbar -->
+		</div>
+		<div class="sidebar-bg"></div>
+		<!-- end #sidebar -->
+		
+		<!-- begin #content -->
+		<div id="content" class="content">
+			<!-- begin breadcrumb -->
+		<!--    <ol class="breadcrumb pull-right">
+				<li><a href="javascript:;">Home</a></li>
+				
+				<li class="active"><%= pagename %></li>
+			</ol> -->
+			<!-- end breadcrumb -->
+			<!-- begin page-header -->
+			<!-- <h1 class="page-header"><%= pagename %> <small>create new company...</small></h1> -->
+			<!-- end page-header -->
+			
+			<!-- begin row -->
+			<!-- begin row -->
+			<div class="row">
+				<!-- begin col-12 -->
+				<div class="col-md-12">
+					<!-- begin panel -->
+					<div class="panel panel-inverse">
+						<div class="panel-heading  ">
+							<div class="panel-heading-btn element">
+								<a href="javascript:onValidate();" class="btn btn-xl btn-icon btn-circle btn-success"><i class="fa fa-save" ></i></a>
+								<a href="javascript:print();" class="btn btn-xl btn-icon btn-circle btn-success" id="print"><i class="fa fa-print" ></i></a>
+								<a href="javascript:approve();" class="btn btn-xl btn-icon btn-circle btn-success"><i class="fa fa-refresh" ></i></a>
+								<a href="javascript:reset();" class="btn btn-xl btn-icon btn-circle btn-success"><i class="fa fa-remove" ></i></a>
+							</div>
+							<h3 class="panel-title"><%= scrndtl.col3 %></h3>
+						</div>
+						<div class="panel-body">
+							<form action="/" method="POST" name="form-wizard" id="form1" data-parsley-validate>
+								<div id="wizard">
+									<ol>
+										
+										<li>
+											Data List
+										</li>
+										<%  
+										var grp=null;
+										groups.forEach (function(group){
+										if(grp != group.col12){
+										%>
+										<li>
+											<%= group.col13 %>
+											
+										</li>
+
+										<%
+										grp=group.col12;
+									} }); %>
+									
+								</ol>
+								<!-- begin wizard step-1 -->
+
+								<div  class="wizard-step-1">
+									
+									<!-- begin row -->
+									<table id="data-table1" class="table table-striped table-bordered">
+										<thead>
+											<tr>
+												<th width="100px" nowrap>Heading1</th>
+												<th width="200px" nowrap>Heading2</th>
+												<th width="200px" nowrap>Heading3</th>
+												<th width="50px"  nowrap>Heading4</th>
+												<th width="50px"  nowrap>Heading5</th>
+											</tr>
+										</thead>
+										<tbody>
+											<!-- data -->
+										</tbody>
+									</table>
+									<!-- end row -->
+									
+								</div>
+								<!-- end wizard step-1 -->
+								
+								<!-- iteration of dy items -->
+								<%- include lib/dy/apicaldy01.ejs %>
+								<!-- end of iteration of dy items -->
+							</div>
+						</form>
+					</div>
+				</div>
+				<!-- end panel -->
+			</div>
+			<!-- end col-12 -->
+		</div>
+		<!-- end row -->
+	</div>
+	<!-- end #content -->
+
+	<%- include lib/dy/apicalf01.ejs %>
+	
+	<!-- begin scroll to top btn -->
+	<a href="javascript:;" class="btn btn-icon btn-circle btn-success btn-scroll-to-top fade" data-click="scroll-top"><i class="fa fa-angle-up"></i></a>
+	<!-- end scroll to top btn -->
+</div>
+<!-- end page container -->
+<%- include lib/dy/apicalf02.ejs %>
+
+<script>
+
+	$(window).load(function(e) {
+		TableManageScroller1.init(<%= scrndtl.col2 %>);
+	});
+
+	function reset() {
+		document.getElementById("form1").reset();
+	};
+</script>
+
+<script>
+	function onValidate(){    
+		var form = $('#form1');
+		form.parsley().validate();
+		if (form.parsley().isValid()){
+			alert('valid');
+			var formdata=$('#form1').serializeArray();
+//add checkbox value to postdata
+/*var vals='';
+$("input[name='mincheck[]']").map(function() {
+	if (this.checked){
+		vals += '1';
+	}else{
+		vals += '0';
+	}
+});
+formdata.push({ name: "validation", value: vals });*/
+// radio button bit to post data
+/*var visiblebit = $('input:radio[name=visiblebit]:checked').val();
+formdata.push({ name: "visible", value: visiblebit });*/
+
+//structure json
+var data = formdata.reduce(function(a, x) { a[x.name] = x.value; return a; }, {});
+Screenfields.push(data);
+$.ajax({
+	type: "POST",
+	url: "/savedata",
+	timeout: 2000,
+	contentType: 'application/json',
+	data: JSON.stringify({scrid:<%= scrndtl.col2 %>,formdata:JSON.stringify(Screenfields)}),
+	success: function(data) {
+		var fdata= JSON.parse(JSON.stringify(data));
+		if(fdata.status == '1'){
+			Screenfields=[];
+			$('#form1').trigger("reset");
+		} 
+		else{
+			$('#form1').trigger("reset");
+			alert("failed to save");
+			Screenfields=[];
+		}
+	}  
+});
+}else{ alert(' not valid');}
+};
+
+</script>
+
+<script type="text/javascript">
+	$(".multipleSelect").select2({
+		placeholder: "Select a state"
+	});
+
+</script>
+<script>
+
+	function getrefno(){
+/*         $.ajax({
+			type: "POST",
+			url: "/v1/refnumber",
+			timeout: 2000,
+			data: { scrnno: "21" , fld_ids: "1,4"},
+			success: function(data) {
+		   // var fdata= JSON.parse(JSON.stringify(data));
+		   alert(String(data));
+			}  
+		});*/
+	}
+</script>
+
+</body>
+</html>

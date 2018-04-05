@@ -1,0 +1,352 @@
+<!DOCTYPE html>
+<!--[if IE 8]> <html lang="en" class="ie8"> <![endif]-->
+<!--[if !IE]><!-->
+<html lang="en">
+<%- include lib/apicalh01 %>
+<% var pagename="Channel partner" %>
+<!-- ================== END BASE CSS STYLE ================== -->
+<link href="assets/plugins/bootstrap-datepicker/css/bootstrap-datepicker.css" rel="stylesheet" />
+<link href="assets/plugins/bootstrap-datepicker/css/bootstrap-datepicker3.css" rel="stylesheet" />
+<link href="assets/plugins/bootstrap-timepicker/css/bootstrap-timepicker.min.css" rel="stylesheet" />
+<link href="assets/plugins/bootstrap-daterangepicker/daterangepicker.css" rel="stylesheet" />
+<link href="assets/plugins/bootstrap-eonasdan-datetimepicker/build/css/bootstrap-datetimepicker.min.css" rel="stylesheet" />
+<script src="assets/modelclasses/ddhelper.js"></script>
+
+<script>
+    function startTour() {
+        var tour = introJs()
+        tour.setOption('tooltipPosition', 'auto');
+        tour.setOption('positionPrecedence', ['left', 'right', 'bottom', 'top'])
+        tour.start()
+    }
+</script>
+
+<script type="text/javascript">
+    var Screenfields = [];
+    var Screenfields1 = [];
+    var currentcount = 0;
+    var selectedIds = [];
+    var groupcount = 1;
+    var select =true;
+
+</script>
+
+<style type="text/css">
+    .bottom-right: {
+        position: absolute;
+        right: 20;
+        bottom: 20;
+    }
+    
+    input,
+    textarea,
+    select,
+    .multipleSelect,
+    .selectpicker,
+    .datepicker {
+        margin: 0 0 10px 0;
+    }
+</style>
+
+<body>
+    <!-- begin #page-loader -->
+    <div id="page-loader" class="fade in"><span class="spinner"></span></div>
+    <!-- end #page-loader -->
+
+    <!-- begin #page-container -->
+    <div id="page-container" class="fade page-sidebar-fixed page-header-fixed">
+        <%- include lib/apicalh02 %>
+
+        <!-- begin #sidebar -->
+        <div id="sidebar" class="sidebar">
+            <!-- begin sidebar scrollbar -->
+            <div data-scrollbar="true" data-height="100%">
+                <!-- begin sidebar user -->
+                <ul class="nav">
+                    <li class="nav-profile">
+                        <div class="image">
+                            <a href="javascript:;"><img src="assets/img/user.png" alt="" /></a>
+                        </div>
+                        <div class="info">
+                           <%=user.enname  %>
+                       </div>
+                   </li>
+               </ul>
+               <!-- end sidebar user -->
+               <%- include lib/apicalm01 %>
+           </div>
+           <!-- end sidebar scrollbar -->
+       </div>
+       <!-- end #sidebar -->
+
+       <!-- begin #content -->
+       <div id="content" class="content">
+
+        <!-- begin page-header -->
+
+        <!-- end page-header -->
+
+        <div class="panel panel-inverse">
+            <div class="panel-heading">
+                <div class="panel-heading-btn">
+                </div>
+                <h4 class="panel-title">Lead Update </h4>
+            </div>
+            <div class="panel-body">
+
+                <div class="row">
+                    <div class="col-md-7">
+                        <form class="form-horizontal" action="/" method="POST" id="mainform">
+                            <div style="margin-top: 2.4%">
+                               
+                                <%- include lib/dy/apicaldyd01.ejs %>
+                                
+                            </div>
+                        </form>
+                    </div>
+                    <div class="col-md-5">
+                        <form class="form-horizontal" action="/" method="POST" id="form1">
+                            <div class="col-md-12">
+                                <br>
+                                <label class="control-label">Remarks:</label>
+                                <div class="m-b-12">
+                                    <textarea class="textarea form-control" id="remarks" name="remarks" placeholder="Enter remarks" rows="5"></textarea>
+                                </div>
+                                <br>
+
+                                <label class="control-label" data-step=" 2 " data-intro="Provision to enter email communication to the selected lead, mail will be sent using logged in users 's mail id as from mail id ">Email:</label>
+                                <div class="m-b-12">
+                                    <input type="text" class="textarea form-control" id="email_comm" name="email_comm" placeholder="Email Communication ..." />
+                                </div>
+                                <br>
+
+                                <label class="control-label">Stage:</label>
+                                <div class="m-b-12">
+                                  <select class="form-control col-md-5" name="stage" api="v1/getstage">
+                                    <option value="NA">NA</option>
+                                </select>
+                            </div>
+                            <br>
+
+                            <label class="control-label">Lead Status:</label>
+                            <div class="m-b-12">
+                                <select class="form-control" id="status" name="status" api="v1/getstatus">
+                                    <option value="NA" selected>NA</option>
+                                </select>
+                            </div>
+                            <br>
+
+                             <label class="control-label">Next Meeting Date:</label>
+                            <div class="m-b-12">
+                             	<input type="text" class="form-control datepicker" id = "nmd" name="nmd" placeholder="Select Date" required /> 
+                            </div>
+                            <br>
+
+                                                    <p><a href="javascript:onValidate();" class="btn btn-success" data-step="3" data-intro="This is Update button on click this button Lead search page will open!" style="float: right;">Update</a></p>
+                                                </div>
+                                            </form>
+                                        </div>
+                                    </div>
+                                </div>
+                            </div>
+                        </div>
+
+                    <!-- <p class="text-center">
+                            &copy; Apical Innovations All Right Reserved 2017
+                        </p> -->
+                        <!-- end #content -->
+                        <!-- begin scroll to top btn -->
+                        <a href="javascript:;" class="btn btn-icon btn-circle btn-success btn-scroll-to-top fade" data-click="scroll-top"><i class="fa fa-angle-up"></i></a>
+                        <!-- end scroll to top btn -->
+                    </div>
+                    <!-- end page container -->
+                    <!-- ================== BEGIN BASE JS ================== -->
+                    <%- include lib/apicalf02.ejs %>
+                    <!-- ================== END BASE JS ================== -->
+
+                    <!-- ================== BEGIN PAGE LEVEL JS ================== -->
+
+					<script src="assets/plugins/parsley/dist/parsley.js"></script>
+                    <script src="assets/js/apps.min.js"></script>
+                    <!-- ================== END PAGE LEVEL JS ================== -->
+                    <script type="text/javascript" src="assets/js/intro.js"></script>
+
+                    <script>
+                        $(document).ready(function() {
+                            App.init();
+                             $(".datepicker").datepicker({ dateFormat: 'dd/mm/yy',minDate: 0  });
+                       $('select').each(
+                        function(index) {
+                            var input = $(this);
+                            var api = input.attr('api');
+                            // var name = input.attr('name');
+                            $.ajax({
+                                type: "GET",
+                                url: "" + api,
+                                timeout: 6000,
+                                contentType: 'application/json',
+                                success: function(data) {
+                                    helpers.buildDropdown(
+                                        JSON.parse(JSON.stringify(data)),
+                                        input,
+                                        'Select an option'
+                                        );
+                                  //  changeselect(name);
+                                }
+                            });
+
+                        });
+
+				$('#status').change(function () {
+   					   var end = this.value;
+                     
+                        if(end == "36" || end == "37"){
+                          document.getElementById("nmd").required = false;
+                       } 
+                       else{
+                       document.getElementById("nmd").required = true;
+                     }
+}); 
+
+                   });
+                        $(window).load(function() {
+
+                        $.ajax({
+                            type: "POST",
+                            url: "/getleaddata",
+                            timeout: 4000,
+                            contentType: 'application/json',
+                            data: JSON.stringify({lid:<%= lid %>}),
+                            success: function(data) {
+                            	//	alert(JSON.stringify(data));
+                              var parsed= JSON.parse(JSON.stringify(data));
+                         
+                              for(var x in parsed){
+                                var datavalue = parsed[x];
+                     			 $("input[name='"+x+"']").val(datavalue.toString());
+                                $("select[name='"+x+"'] option[value='"+datavalue.toString()+"']").attr('selected','selected');
+                                $("textarea[name='"+x+"']").val(datavalue.toString());
+                                                                
+                              }						 			
+                            }
+                          });
+});
+               </script>
+
+
+<script>
+
+
+
+    function onValidate() {
+        var form = $('#mainform');
+         var form1 = $('#form1');
+                       // alert("Step 1");
+                        form.parsley().validate();
+             	  form1.parsley().validate();
+                if (form.parsley().isValid() && form1.parsley().isValid()){
+               /* if(true){*/
+                    var formdata = $('#mainform').serializeArray();
+                    var data = formdata.reduce(function(a, x) {
+                        a[x.name] = x.value;
+                        return a;
+                    }, {});
+                    Screenfields.push(data);
+                      //  alert(JSON.stringify(Screenfields));
+                        //alert("Step 2");
+                        $.ajax({
+                            type: "POST",
+                            url: "/updatedata",
+                            timeout: 4000,
+                            contentType: 'application/json ',
+                            data: JSON.stringify({
+                                scrid: "575",
+                                leadid:<%= lid %>,
+                                formdata: JSON.stringify(Screenfields)
+                            }),
+                            success: function(data) {
+                                var fdata = JSON.parse(JSON.stringify(data));
+                                if (fdata.status == 1) {
+                                    Screenfields = [];
+                                  //  $('#mainform ').trigger("reset");
+				//				alert("Lead saved successfully");
+                                } else {
+                                   // $('#mainform ').trigger("reset");
+                                 //   alert("Lead failed to save");
+                                    Screenfields = [];
+                                }
+                            }
+                        });
+
+                    //    alert("Step 3");
+
+                    var formdata1 = $('#form1').serializeArray();
+                    var data1 = formdata1.reduce(function(a, x) {
+                        a[x.name] = x.value;
+                        return a;
+                    }, {});
+                    Screenfields1.push(data1);
+                     //   alert(JSON.stringify(Screenfields1));
+                       // alert("Step 4");
+                       $.ajax({
+                        type: "POST",
+                        url: "/updateschedule",
+                        timeout: 4000,
+                        contentType: 'application/json ',
+                        data: JSON.stringify({
+                            scrid: parseInt(576),
+                            leadid:<%= lid %>,
+                            formdata: JSON.stringify(Screenfields1)
+                        }),
+                        success: function(data) {
+                            var fdata = JSON.parse(JSON.stringify(data));
+                            if (fdata.status == 1) {
+                                Screenfields1 = [];
+                                $('#form1').trigger("reset");
+								alert("Data saved successfully");
+					//window.location.href = '/leadlist';
+				var calldate = '<%- calldate %>';
+                                var calltype = '<%- calltype %>';
+                               // alert("calldate : "+calldate);                          
+                                if(calldate){
+
+                                        var f = document.createElement("form");
+                                        f.setAttribute('id',"form");
+                                        f.setAttribute('method',"POST");
+                                        f.setAttribute('action',"/calllist");
+
+                                        var i = document.createElement("input"); //input element, text
+                                        i.setAttribute('type',"text");
+                                        i.setAttribute('name',"calldate");
+                                        i.setAttribute('value',calldate);
+
+                                        var j = document.createElement("input"); //input element, text
+                                        j.setAttribute('type',"text");
+                                        j.setAttribute('name',"type");
+                                        j.setAttribute('value',calltype);
+
+                                        f.appendChild(i);
+                                        f.appendChild(j);
+
+                                        document.body.appendChild(f);
+                                        f.submit();
+                                }else{
+                                        window.location.href = '/leadlist';
+                                }
+
+                            } else {
+                                   // $('#form1').trigger("reset");
+                              //    alert("Schedule failed to save");
+                                   Screenfields1 = [];
+                               }
+                           // window.location.href = '/leadlist';   
+				}
+                       });
+                        //alert("DONE with swag");
+                    }else{ alert('Form not valid ');}
+                };
+            </script>
+
+        </body>
+
+        </html>

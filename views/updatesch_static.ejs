@@ -1,0 +1,355 @@
+<!DOCTYPE html>
+<!--[if IE 8]> <html lang="en" class="ie8"> <![endif]-->
+<!--[if !IE]><!-->
+<html lang="en">
+<%- include lib/apicalh01 %>
+    <% var pagename="Channel partner" %>
+        <!-- ================== END BASE CSS STYLE ================== -->
+        <link href="assets/plugins/bootstrap-datepicker/css/bootstrap-datepicker.css" rel="stylesheet" />
+        <link href="assets/plugins/bootstrap-datepicker/css/bootstrap-datepicker3.css" rel="stylesheet" />
+        <link href="assets/plugins/bootstrap-timepicker/css/bootstrap-timepicker.min.css" rel="stylesheet" />
+        <link href="assets/plugins/bootstrap-daterangepicker/daterangepicker.css" rel="stylesheet" />
+        <link href="assets/plugins/bootstrap-eonasdan-datetimepicker/build/css/bootstrap-datetimepicker.min.css" rel="stylesheet" />
+        <script src="assets/modelclasses/ddhelper.js"></script>
+
+        <script>
+            function startTour() {
+                var tour = introJs()
+                tour.setOption('tooltipPosition', 'auto');
+                tour.setOption('positionPrecedence', ['left', 'right', 'bottom', 'top'])
+                tour.start()
+            }
+        </script>
+
+        <script type="text/javascript">
+            var Screenfields = [];
+            var currentcount = 0;
+            var selectedIds = [];
+            var groupcount = 1;
+        </script>
+
+        <style type="text/css">
+            .bottom-right: {
+                position: absolute;
+                right: 20;
+                bottom: 20;
+            }
+        </style>
+
+        <body>
+            <!-- begin #page-loader -->
+            <div id="page-loader" class="fade in"><span class="spinner"></span></div>
+            <!-- end #page-loader -->
+
+            <!-- begin #page-container -->
+            <div id="page-container" class="fade page-sidebar-fixed page-header-fixed">
+                <%- include lib/apicalh02 %>
+
+                    <!-- begin #sidebar -->
+                    <div id="sidebar" class="sidebar">
+                        <!-- begin sidebar scrollbar -->
+                        <div data-scrollbar="true" data-height="100%">
+                            <!-- begin sidebar user -->
+                            <ul class="nav">
+                                <li class="nav-profile">
+                                    <div class="image">
+                                        <a href="javascript:;"><img src="assets/img/user.png" alt="" /></a>
+                                    </div>
+                                    <div class="info">
+                                        LMS User
+                                        <small>Designation</small>
+                                    </div>
+                                </li>
+                            </ul>
+                            <!-- end sidebar user -->
+                            <%- include lib/apicalm01 %>
+                        </div>
+                        <!-- end sidebar scrollbar -->
+                    </div>
+                    <!-- end #sidebar -->
+
+                    <!-- begin #content -->
+                    <div id="content" class="content">
+
+                        <!-- begin page-header -->
+
+                        <!-- end page-header -->
+
+                        <div class="panel panel-inverse">
+                            <div class="panel-heading">
+                                <div class="panel-heading-btn">
+                                    <a href="javascript:;" class="btn btn-xs btn-icon btn-circle btn-default" data-click="panel-expand"><i class="fa fa-expand"></i></a>
+                                    <a href="javascript:;" class="btn btn-xs btn-icon btn-circle btn-success" data-click="panel-reload"><i class="fa fa-repeat"></i></a>
+                                    <a href="javascript:;" class="btn btn-xs btn-icon btn-circle btn-warning" data-click="panel-collapse"><i class="fa fa-minus"></i></a>
+                                    <a href="javascript:;" class="btn btn-xs btn-icon btn-circle btn-danger" data-click="panel-remove"><i class="fa fa-times"></i></a>
+                                </div>
+                                <h4 class="panel-title">Lead Update </h4>
+                            </div>
+                            <div class="panel-body">
+
+                                <div class="row">
+                                    <div class="col-md-12">
+                                        <form class="form-horizontal" action="/" method="POST" id="mainform" data-parsley-validate>
+                                            <div class="col-md-6" style="margin-top: 2.4%">
+
+                                                <div class="row">
+                                                    <div class="form-group">
+                                                        <label class="col-md-3">Partener Name :</label>
+                                                        <div class="col-md-9">
+                                                            <input type="text" name="partenername" id="partenername" placeholder="Enter name here" class="form-control" />
+                                                        </div>
+                                                    </div>
+                                                    <div class="form-group">
+                                                        <label class="col-md-3">Number :</label>
+                                                        <div class="col-md-9">
+                                                            <input type="text" name="Number" id="Number" placeholder="Enter number" class="form-control" />
+                                                        </div>
+                                                    </div>
+
+                                                    <div class="form-group">
+                                                        <label class="col-md-3">Email :</label>
+                                                        <div class="col-md-9">
+                                                            <input type="text" name="email" id="email" placeholder="Enter email" class="form-control" />
+                                                        </div>
+                                                    </div>
+                                                    <div class="form-group">
+                                                        <label class="col-md-3">Source :</label>
+                                                        <div class="col-md-9">
+
+                                                            <select class="form-control" name="source" id="source"  api="v1/getsource">
+                                                                        <option value="NA" selected>NA</option>
+                                                            </select>
+
+                                                        </div>
+                                                    </div>
+                                                    <div class="form-group">
+                                                        <label class="col-md-3">Sub Source :</label>
+                                                        <div class="col-md-9">
+                                                            <select class="form-control" name="subsource" id="subsource"  api="v1/getsubsource">
+                                                                        <option value="NA" selected>NA</option>
+                                                            </select>
+                                                        </div>
+                                                    </div>
+                                                    <div class="form-group">
+                                                        <label class="col-md-3">Stage :</label>
+                                                        <div class="col-md-9">
+                                                            <select class="form-control" id="stage" name="stage"  api="v1/getstage">
+                                                                        <option value="NA" selected>NA</option>
+                                                            </select>
+                                                        </div>
+                                                    </div>
+                                                    <div class="form-group">
+                                                        <label class="col-md-3">Gender :</label>
+                                                        <div class="col-md-9">
+                                                            <label class="radio-inline">
+                                                                <input type="radio" name="gender" value="male" checked /> Male
+                                                            </label>
+                                                            <label class="radio-inline">
+                                                                <input type="radio" name="gender" value="female" /> Female
+                                                            </label>
+                                                        </div>
+                                                    </div>
+
+                                                    <div class="form-group">
+                                                        <label class="col-md-3">Address :</label>
+                                                        <div class="col-md-9">
+                                                            <textarea name="Address" id="Address" placeholder="Enter Address" class="form-control" rows="5"></textarea>
+                                                        </div>
+                                                    </div>
+
+                                                    <div class="form-group">
+                                                        <label class="col-md-3">Reference Name:</label>
+                                                        <div class="col-md-9">
+                                                            <input type="text" name="Reference_name" id="Reference" placeholder="Search" class="form-control" />
+                                                        </div>
+                                                    </div>
+                                                    <div class="form-group">
+                                                        <label class="col-md-3">Reference Number :</label>
+                                                        <div class="col-md-9">
+                                                            <input type="text" name="Reference_no" id="Reference_no" placeholder="Search" class="form-control" />
+                                                        </div>
+                                                    </div>
+                                                </div>
+
+                                            </div>
+                                            <div class="col-md-6">
+                                                <br>
+                                                <label class="control-label">Remarks:</label>
+                                                <div class="m-b-12">
+                                                    <textarea class="textarea form-control" id="ramarks" name="ramarks" placeholder="Enter text ..." rows="5"></textarea>
+                                                </div>
+                                                <br>
+                                                <label class="control-label" data-step=" 2 " data-intro="Provision to enter email communication to the selected lead, mail will be sent using logged in users 's mail id as from mail id ">Email:</label>
+                                                <div class="m-b-12">
+                                                    <input type="text" class="textarea form-control" id="email_1" name="email_1" placeholder="Email Communication ..."/>
+                                                </div>
+                                                <br>
+                                                
+                                                <label class="control-label">Coupon:</label>
+                                                <div class="m-b-12">
+                                                    <select class="form-control" id="coupon" name="coupon"  api="v1/getcoupons">
+                                                        <option value="NA" selected>NA</option>
+                                                    </select>
+                                                </div>
+                                                <br>
+
+                                                <label class="control-label">Assigned to:</label>
+                                                <div class="m-b-12">
+                                                    <select class="form-control" id="assinged_to" name="assinged_to"  api="v1/getassignto">
+                                                        <option value="NA" selected>NA</option>
+                                                    </select>
+                                                </div>
+                                                <br>
+                                                <label class="control-label">Status:</label>
+                                                <div class="m-b-12">
+                                                    <select class="form-control" id="status" name="status"  api="v1/getstatus">
+                                                        <option value="NA" selected>NA</option>
+                                                    </select>
+                                                </div>
+                                                <br>
+
+                                                <label class="control-label">Next Meeting Date:</label>
+                                                <div class="m-b-12">
+                                                    <input type="text" id="datepicker" name="nmd" class="form-control datepicker" >
+                                                </div>
+                                                <br>
+
+
+
+                                                <!-- <label class="control-label">Next Meeting Date:</label>
+
+                                                <div class="btn-group btn-group">
+                                                 <input type="text" id="datepicker" name="nmd" class="form-control datepicker" >
+                                                    <button type="button" class="btn btn-primary" style="margin-right: 5px; visibility: hidden;">Next Week
+                                                        <br>26-08-2017</button>
+                                                    <button type="button" class="btn btn-primary" style="margin-right: 5px; visibility: hidden;">After 15 Days
+                                                        <br>02-09-2017</button>
+                                                    <button type="button" class="btn btn-primary" style="margin-right: 5px; visibility: hidden;">Next Month
+                                                        <br>19-09-2017</button>
+                                                    <button type="button" id="btnpickdate" class="btn btn-primary" style="visibility: hidden;">Pick a
+                                                        <br>Date</button>
+                                                   
+                                                </div> -->
+                                                <p><a href="javascript:onValidate();" class="btn btn-success" data-step="3" data-intro="This is Update button on click this button Lead search page will open!" style="float: right;">Update</a></p>
+
+                                            </div>
+                                        </form>
+                                    </div>
+                                </div>
+                            </div>
+                        </div>
+                    </div>
+
+                    <!-- <p class="text-center">
+                            &copy; Apical Innovations All Right Reserved 2017
+                        </p> -->
+                    <!-- end #content -->
+                    <!-- begin scroll to top btn -->
+                    <a href="javascript:;" class="btn btn-icon btn-circle btn-success btn-scroll-to-top fade" data-click="scroll-top"><i class="fa fa-angle-up"></i></a>
+                    <!-- end scroll to top btn -->
+            </div>
+            <!-- end page container -->
+            <!-- ================== BEGIN BASE JS ================== -->
+            <%- include lib/apicalf02.ejs %>
+                <!-- ================== END BASE JS ================== -->
+
+                <!-- ================== BEGIN PAGE LEVEL JS ================== -->
+                <script src="assets/js/email-compose.demo.min.js"></script>
+                <script src="assets/js/apps.min.js"></script>
+                <!-- ================== END PAGE LEVEL JS ================== -->
+                <script type="text/javascript" src="assets/js/intro.js"></script>
+
+                <script>
+                    $(document).ready(function() {
+                        App.init();
+                    });
+                    $(window).load(function(e) {
+                        console.log("On load called");
+                        // alert("On load called");
+                        document.getElementById("Number").value = "<%= leaddtl.Number %>";
+                        document.getElementById("partenername").value = "<%= leaddtl.Leadname %>";
+                        document.getElementById("email").value = "<%= leaddtl.Email %>";
+                        document.getElementById("Reference").value = "<%= leaddtl.ReferenceName %>";
+                        document.getElementById("Reference_no").value = "<%= leaddtl.ReferenceNumber %>";
+
+$('select').each(
+    function(index){  
+        var input = $(this);
+        var api=input.attr('api');
+/*alert('Api: ' + input.attr('api'));*/
+$.ajax({
+            type: "GET",
+            url: ""+api,
+                  timeout: 2000,
+            contentType: 'application/json',
+            success: function(data)
+            {
+                helpers.buildDropdown(
+                  JSON.parse(JSON.stringify(data)),
+                      input,
+                    'Select an option'
+                );
+            }
+        });
+ 
+ });
+                        // var 
+                        // $(e.currentTarget).find('input[name="partenername"]').val(<%= leaddtl.Leadname%>);
+                    });
+                </script>
+
+                <script>
+
+                $(".datepicker").datepicker();
+                    // $("#datepicker").datepicker({
+                    //     showOn: 'button'
+                    // });
+
+                    // $("#btnpickdate").click(function() {
+                    //     $("#datepicker").datepicker("show");
+                    // });
+                </script>
+
+                <script>
+                    function onValidate() {
+                        var form = $('#mainform ');
+
+                        /*form.parsley().validate();*/
+                        //if (form.parsley().isValid()){
+
+                        var formdata = $('#mainform ').serializeArray();
+
+                        var data = formdata.reduce(function(a, x) {
+                            a[x.name] = x.value;
+                            return a;
+                        }, {});
+                        Screenfields.push(data);
+                        alert(JSON.stringify(Screenfields));
+                        $.ajax({
+                            type: "POST",
+                            url: "/savedata",
+                            timeout: 2000,
+                            contentType: 'application/json ',
+                            data: JSON.stringify({
+                                scrid: parseInt(100),
+                                formdata: JSON.stringify(Screenfields)
+                            }),
+                            success: function(data) {
+                                var fdata = JSON.parse(JSON.stringify(data));
+                                if (fdata.status == '1 ') {
+                                    Screenfields = [];
+                                    $('#mainform ').trigger("reset");
+                                } else {
+                                    $('#mainform ').trigger("reset");
+                                    alert("failed to save");
+                                    Screenfields = [];
+                                }
+                            }
+                        });
+                        //}else{ alert(' not valid ');}
+                    };
+                </script>
+
+        </body>
+
+</html>

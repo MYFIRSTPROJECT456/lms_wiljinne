@@ -1,0 +1,370 @@
+<!DOCTYPE html>
+<!--[if IE 8]> <html lang="en" class="ie8"> <![endif]-->
+<!--[if !IE]><!-->
+<html lang="en">
+<%- include lib/apicalh01 %>
+<% var pagename="Channel partner" %>
+
+<!-- ================== BEGIN PAGE LEVEL STYLE ================== -->
+<link href="assets/plugins/bootstrap-wizard/css/bwizard.min.css" rel="stylesheet" />
+<link href="assets/plugins/DataTables/media/css/dataTables.bootstrap.min.css" rel="stylesheet" />
+<link href="assets/plugins/DataTables/extensions/Buttons/css/buttons.bootstrap.min.css" rel="stylesheet" />
+<link href="assets/plugins/DataTables/extensions/Responsive/css/responsive.bootstrap.min.css" rel="stylesheet" />
+<link href="assets/plugins/DataTables/extensions/Scroller/css/scroller.bootstrap.min.css" rel="stylesheet" />
+<!-- ================== END PAGE LEVEL STYLE ================== -->
+<style type="text/css">
+    input,textarea,select,.multipleSelect,.selectpicker,.datepicker{
+        margin:0 0 10px 0;
+    }
+    .selectBox {
+      position: relative;
+  }
+
+  .selectBox select {
+      width: 100%;
+      font-weight: bold;
+  }
+
+  .overSelect {
+      position: absolute;
+      left: 0;
+      right: 0;
+      top: 0;
+      bottom: 0;
+  }
+
+  #checkboxes {
+      display: none;
+      border: 1px #dadada solid;
+  }
+
+  #checkboxes label {
+      display: block;
+  }
+
+  #checkboxes label:hover {
+   /* background-color: #1e90ff;*/
+}
+</style>
+</head>
+<body>
+ <!-- begin #page-loader -->
+ <div id="page-loader" class="fade in"><span class="spinner"></span></div>
+ <!-- end #page-loader -->
+
+ <!-- begin #page-container -->
+ <div id="page-container" class="fade page-sidebar-fixed page-header-fixed">
+    <%- include lib/apicalh02 %>
+    <!-- begin #sidebar -->
+    <div id="sidebar" class="sidebar">
+        <!-- begin sidebar scrollbar -->
+        <div data-scrollbar="true" data-height="100%">
+            <!-- begin sidebar user -->
+            <ul class="nav">
+                <li class="nav-profile">
+                    <div class="image">
+                        <a href="#"><img src="assets/img/user.png" alt="" /></a>
+                    </div>
+                    <div class="info">
+                      <%=user.enname  %>
+                  </div>
+              </li>
+          </ul>
+          <!-- end sidebar user -->
+          <%- include lib/apicalm01 %>
+      </div>
+      <!-- end sidebar scrollbar -->
+  </div>
+  <!-- end #sidebar -->
+
+  <!-- begin #content -->
+  <div id="content" class="content">
+     <!-- begin breadcrumb -->
+
+     <!-- end breadcrumb -->
+     <!-- begin row -->
+     <div class="row">
+        <!-- begin col-12 -->
+        <div class="col-md-12">
+            <!-- begin panel -->
+            <div class="panel panel-inverse">
+                <div class="panel-heading">
+                    <div class="panel-heading-btn element">
+                      <% if(user.syno != '1'){%>  <a href="javascript:onValidate();" class="btn btn-xl btn-icon btn-circle btn-success"><i class="fa fa-save" ></i></a> <%}%>
+                        <a href="javascript:print();" class="btn btn-xl btn-icon btn-circle btn-success" id="print"><i class="fa fa-print" ></i></a>
+                        <a href="javascript:approve();" class="btn btn-xl btn-icon btn-circle btn-success"><i class="fa fa-refresh" ></i></a>
+                        <a href="javascript:reset();" class="btn btn-xl btn-icon btn-circle btn-success"><i class="fa fa-remove" ></i></a>
+                    </div>
+                    <h4 class="panel-title">Task Definition</h4>
+                </div>
+                <div class="panel-body">
+                   <form action="/" method="POST" name="form-wizard" id="form1" data-parsley-validate="true">
+                    <div id="wizard">
+                       <ol>
+                          <li>
+                            Task List
+                        </li>
+                        <li>
+                           Task Type
+                       </li>
+                       
+                   </ol>
+                   <!-- begin wizard step-1 -->
+                   <div>
+                    <fieldset>
+                      <!--   <legend class="pull-left width-full">Identification</legend> -->
+                      <!-- begin row -->
+                      <div class="row">
+                        <!-- begin col-4 -->
+                        <table id="data-table1" class="table table-striped table-bordered">
+                          <thead>
+                              <tr>
+                                  <th>Task Name</th>
+                                  <th>Sub Task</th>
+                              </th>
+                          </tr>
+                      </thead>
+                      <tbody>
+                          <tr class="odd gradeX">
+                              <td>FieldView</td>
+                              <td>no</td>
+                          </tr>
+
+                          <tr class="odd gradeX">
+                              <td>Aitracker</td>
+                              <td>no</td>
+                          </tr>
+
+                          <tr class="odd gradeX">
+                              <td>Impress</td>
+                              <td>no</td>
+                          </tr>
+                          <tr class="odd gradeX">
+                              <td>Cs</td>
+                              <td>no</td>
+                          </tr>
+                          <tr class="odd gradeX">
+                              <td>DIP</td>
+                              <td>yes</td>
+                          </tr>
+                          <tr class="odd gradeX">
+                              <td>CallTracker</td>
+                              <td>no</td>
+                          </tr>
+                      </tbody>
+
+                  </table>
+                  <!-- end col-4 -->
+              </div>
+              <!-- end row -->
+          </fieldset>
+      </div>
+      <!-- end wizard step-1 -->
+      <!-- begin wizard step-2 -->
+      <div>
+          <fieldset>
+             <!-- <legend class="pull-left width-full">Contact Information</legend> -->
+             <!-- begin row -->
+             <div class="row">
+                <!-- begin col-6 -->
+                <div class="col-md-12">
+                  <div class="col-md-6">
+                     <div class="form-group" >
+                        <label class="col-md-3">Task Type:</label>
+                        <div class="col-md-9">
+                            <div class="form-group">
+                               <input type="text" name="tast_type" placeholder="Enter Text Here" class="form-control" />
+                           </div>
+                       </div>
+                   </div><br><br> 
+                   <div class="row form-group col-md-12">
+                    <label class="col-md-3 control-label">Sub task:</label>
+                    <div class="col-md-9">
+                        <div class="radio-inline">
+                            <label>
+                                <input type="radio" name="sub_task" value="0" checked />
+                                Yes
+                            </label>
+                        </div>
+                        <div class="radio-inline">
+                            <label>
+                                <input type="radio" name="sub_task" value="1" />
+                                No
+                            </label>
+                        </div>
+                    </div>
+                </div>
+            </div>
+        </div>
+        
+        <!-- end col-6 -->
+        <!-- begin col-6 -->
+
+        <!-- end col-6 -->
+    </div>
+    <a href="#modal-dialog" data-toggle="modal" class="btn btn-success btn-icon btn-circle" id="btnShow"  style="width: 40Px;height: 40px; margin-left: 20px;"><i class="fa fa-plus fa-1x" style="margin-top: 12px;" ></i></a>
+    <!-- end row -->
+</fieldset>
+</div>
+<!-- end wizard step-2 -->
+<!-- begin wizard step-3 -->
+
+<!-- end wizard step-4 -->
+</div>
+</form>
+</div>
+</div>
+<!-- end panel -->
+</div>
+<!-- end col-12 -->
+</div>
+<!-- end row -->
+</div>
+<!-- end #content -->
+
+
+<div class="modal fade" id="modal-dialog">
+    <div class="modal-dialog">
+        <div class="modal-content">
+            <div class="modal-header">
+                <button type="button" class="close" data-dismiss="modal" aria-hidden="true">×</button>
+                <!--   <h4 class="modal-title">Tasks</h4> -->
+            </div>
+            <div class="modal-body">
+                <div class="row">
+                    <div class="form-group" >
+                        <label class="col-md-3">Task Name :</label>
+                        <div class="col-md-9">
+                            <input type="text" name="taskname" placeholder="Task name" class="form-control" value="" />
+                        </div>
+                    </div><br><br>
+
+                    <div class="form-group" >
+                        <label class="col-md-3">Estimate Hrs :</label>
+                        <div class="col-md-9">
+                            <input type="text" name="estimate_time" placeholder="This field is mandatory" class="form-control" value="" />
+                        </div>
+                    </div><br><br>
+
+                    <div class="form-group" >
+                        <label class="col-md-3">Previous task:</label>
+                        <div class="col-md-9">
+                            <select class="form-control">
+                                <option>FieldView</option>
+                                <option>LMS</option>
+                                <option>AiTracker</option>
+                                <option>Impress</option>
+                            </select>
+                        </div>
+                    </div><br><br>
+
+
+                    <div class="form-group" >
+                     <label class="col-md-3">Document to be completed:</label>
+                     <div class="multiselect col-md-9">
+                         <div class="selectBox" onclick="showCheckboxes()">
+                           <select class="form-control">
+                             <option>Select an option</option>
+                         </select>
+                         <div class="overSelect"></div>
+                     </div>
+                     <div id="checkboxes">
+                       <label for="one">
+                         <input type="checkbox" id="one" class="form-group" style="margin-left: 5px;" /> First documnent</label>
+                         <label for="two">
+                             <input type="checkbox" id="two" style="margin-left: 5px;" /> Second documnent</label>
+                             <label for="three">
+                                 <input type="checkbox" id="three" style="margin-left: 5px;" /> Third documnent</label>
+                                 <label for="four">
+                                     <input type="checkbox" id="four" style="margin-left: 5px;" /> Fourth documnent</label>
+                                     <label for="five">
+                                         <input type="checkbox" id="five" style="margin-left: 5px;" /> Fifth documnent</label>
+                                         <label for="six">
+                                             <input type="checkbox" id="six" style="margin-left: 5px;" /> Sixth documnent</label>
+                                             <label for="seven">
+                                                 <input type="checkbox" id="seven" style="margin-left: 5px;" /> Seventh documnent</label>
+                                                 <label for="eight">
+                                                     <input type="checkbox" id="eight" style="margin-left: 5px;" /> Eighth documnent</label>
+                                                     <label for="nine">
+                                                         <input type="checkbox" id="nine" style="margin-left: 5px;" /> Ninth documnent</label>
+                                                         <label for="ten">
+                                                             <input type="checkbox" id="ten" style="margin-left: 5px;" /> Tenth documnent</label>
+                                                         </div>
+                                                     </div>
+                                                 </div>
+                                             </div>      
+                                         </div>
+                                         <div class="modal-footer">
+                                            <a href="javascript:;" class="btn btn-sm btn-white" data-dismiss="modal">Close</a>
+                                            <a href="javascript:;" class="btn btn-sm btn-success" data-dismiss="modal">Save</a>
+                                        </div>
+                                    </div>
+                                </div>
+                            </div>
+                            <!-- begin theme-panel -->
+                            
+                            <!-- end theme-panel -->
+                            
+                            <!-- begin scroll to top btn -->
+                            <a href="javascript:;" class="btn btn-icon btn-circle btn-success btn-scroll-to-top fade" data-click="scroll-top"><i class="fa fa-angle-up"></i></a>
+                            <!-- end scroll to top btn -->
+                        </div>
+                        <!-- end page container -->
+                        
+                        <!-- ================== BEGIN BASE JS ================== -->
+                        <%- include lib/apicalf02.ejs %>
+                        <!-- ================== END BASE JS ================== -->
+                        
+                        <!-- ================== BEGIN PAGE LEVEL JS ================== -->
+                        <script src="assets/plugins/bootstrap-wizard/js/bwizard.js"></script>
+                        <script src="assets/js/form-wizards-validation.demo.min.js"></script>
+                        <script src="assets/js/apps.min.js"></script>
+                        <script src="assets/plugins/DataTables/media/js/jquery.dataTables.js"></script>
+                        <script src="assets/plugins/DataTables/media/js/dataTables.bootstrap.min.js"></script>
+                        <script src="assets/plugins/DataTables/extensions/Buttons/js/dataTables.buttons.min.js"></script>
+                        <script src="assets/plugins/DataTables/extensions/Buttons/js/buttons.bootstrap.min.js"></script>
+                        <script src="assets/plugins/DataTables/extensions/Buttons/js/buttons.flash.min.js"></script>
+                        <script src="assets/plugins/DataTables/extensions/Buttons/js/jszip.min.js"></script>
+                        <script src="assets/plugins/DataTables/extensions/Buttons/js/pdfmake.min.js"></script>
+                        <script src="assets/plugins/DataTables/extensions/Buttons/js/vfs_fonts.min.js"></script>
+                        <script src="assets/plugins/DataTables/extensions/Buttons/js/buttons.html5.min.js"></script>
+                        <script src="assets/plugins/DataTables/extensions/Buttons/js/buttons.print.min.js"></script>
+                        <script src="assets/plugins/DataTables/extensions/Responsive/js/dataTables.responsive.min.js"></script>
+                        <script src="assets/plugins/parsley/dist/parsley.js"></script>
+                        <script src="assets/js/apical/table-manage-scroller.demo.js"></script>
+                        <!-- ================== END PAGE LEVEL JS ================== -->
+                        
+                        <script>
+                          $(document).ready(function() {
+                             App.init();
+                             FormWizardValidation.init();
+                             
+                         });
+
+                          $(window).load(function(e) {
+                            TableManageScroller0.init();
+                        });
+                    </script>
+
+                    <script type="text/javascript">
+                      var expanded = false;
+                      function showCheckboxes() {
+                        var checkboxes = document.getElementById("checkboxes");
+                        if (!expanded) {
+                          checkboxes.style.display = "block";
+                          expanded = true;
+                      } else {
+                          checkboxes.style.display = "none";
+                          expanded = false;
+                      }
+                  }
+              </script>
+
+              <script>
+                function generateRow() {
+                    var d=document.getElementById("div");
+                    d.innerHTML+="<div class='col-md-4'><input type='text' name='food' placeholder='Raw product' class='form-control'/></div><div class='col-md-4'><input type='text' name='food' placeholder='Amount' class='form-control'/></div><br/></br><br>";
+                }
+            </script>
+        </body>
+        </html>

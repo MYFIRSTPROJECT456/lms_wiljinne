@@ -1,0 +1,157 @@
+<!DOCTYPE html>
+<!--[if IE 8]> <html lang="en" class="ie8"> <![endif]-->
+<!--[if !IE]><!-->
+<html lang="en">
+<%- include lib/apicalh01 %>
+    <% var pagename="Channel partner" %>
+
+        <body>
+            <!-- begin #page-loader -->
+            <div id="page-loader" class="fade in"><span class="spinner"></span></div>
+            <!-- end #page-loader -->
+
+            <!-- begin #page-container -->
+            <div id="page-container" class="fade page-sidebar-fixed page-header-fixed">
+                <%- include lib/apicalh02 %>
+                    <!-- begin #sidebar -->
+                    <div id="sidebar" class="sidebar">
+                        <!-- begin sidebar scrollbar -->
+                        <div data-scrollbar="true" data-height="100%">
+                            <!-- begin sidebar user -->
+                            <ul class="nav">
+                                <li class="nav-profile">
+                                    <div class="image">
+                                        <a href="javascript:;"><img src="assets/img/user-13.jpg" alt="" /></a>
+                                    </div>
+                                    <div class="info">
+                                        Sean Ngu
+                                        <small>Front end developer</small>
+                                    </div>
+                                </li>
+                            </ul>
+                            <!-- end sidebar user -->
+                            <%- include lib/apicalm01 %>
+                        </div>
+                        <!-- end sidebar scrollbar -->
+                    </div>
+                    <div class="sidebar-bg"></div>
+                    <!-- end #sidebar -->
+
+                    <!-- begin #content -->
+                    <div id="content" class="content">
+
+                        <!-- begin breadcrumb -->
+
+                        <!-- end breadcrumb -->
+                        <!-- begin page-header -->
+
+                        <!-- end page-header -->
+                        <!-- begin profile-container -->
+                        <div class="profile-container">
+                            <!-- begin profile-section -->
+                            <div class="profile-section">
+                                <!-- begin profile-left -->
+                                <div class="profile-left">
+                                    <!-- begin profile-image -->
+                                    <div class="profile-image">
+                                        <img src="assets/img/logo.png" />
+                                        <i class="fa fa-user hide"></i>
+                                    </div>
+                                    <!-- end profile-image -->
+                                    <div class="m-b-10">
+                                        <a href="#" class="btn btn-warning btn-block btn-sm">Change Picture</a>
+                                    </div>
+                                    <!-- begin profile-highlight -->
+                                    <div class="profile-highlight">
+
+                                    </div>
+                                    <!-- end profile-highlight -->
+                                </div>
+                                <!-- end profile-left -->
+                                <!-- begin profile-right -->
+                                <div class="profile-right">
+                                    <!-- begin profile-info -->
+                                    <div class="profile-info">
+                                        <!-- begin table -->
+                                        <form action="/changepass" method="POST" class="margin-bottom-0">
+                                            <div class="table-responsive">
+                                                <table class="table table-profile">
+                                                    <thead>
+                                                        <tr>
+                                                            <th></th>
+                                                            <th>
+                                                                <h4><%- user.enname %></h4>
+                                                            </th>
+                                                        </tr>
+                                                    </thead>
+                                                    <tbody>
+                                                        <tr class="divider">
+                                                            <td colspan="2"></td>
+                                                        </tr>
+
+                                                        <tr>
+                                                            <td class="field">Old Password*</td>
+                                                            <td>
+                                                                <input type="Password" name="oldpass" class="form-control" style="width: 200px;" required="true">
+                                                            </td>
+                                                        </tr>
+                                                        <tr>
+                                                            <td class="field">Change Password*</td>
+                                                            <td>
+                                                                <input type="Password" name="newpass" class="form-control" style="width: 200px;" required="true">
+                                                            </td>
+                                                        </tr>
+
+                                                        <tr>
+                                                            <td class="field">Confirm Password*</td>
+                                                            <td>
+                                                                <input type="Password" name="confirmpass" class="form-control" style="width: 200px;" required="true">
+                                                            </td>
+                                                        </tr>
+                                                    </tbody>
+                                                </table>
+                                                <div class="m-b-10">
+                                                    <button type="submit" class="btn btn-warning btn-block btn-sm" style="width: 200px;margin-left: 100px;">Change Password</button>
+                                                    <!-- <a href="javascript:changePassword();" class="btn btn-warning btn-block btn-sm" style="width: 150px;margin-left: 150px;">Done</a> -->
+                                                </div>
+                                            </div>
+                                            <!-- end table -->
+                                        </form>
+                                    </div>
+                                    <!-- end profile-info -->
+                                </div>
+                                <!-- end profile-right -->
+                            </div>
+                            <!-- end profile-section -->
+                            <!-- begin profile-section -->
+
+                            <!-- end profile-section -->
+                        </div>
+
+                        <!-- end profile-container -->
+                    </div>
+                    <!-- end #content -->
+                    <!-- <p class="text-center">
+                            &copy; Apical Innovations All Right Reserved 2017
+                        </p> -->
+                    <!-- begin scroll to top btn -->
+                    <a href="javascript:;" class="btn btn-icon btn-circle btn-success btn-scroll-to-top fade" data-click="scroll-top"><i class="fa fa-angle-up"></i></a>
+                    <!-- end scroll to top btn -->
+            </div>
+            <!-- end page container -->
+            <!-- ================== BEGIN BASE JS ================== -->
+            <%- include lib/apicalf02.ejs %>
+                <!-- ================== END BASE JS ================== -->
+
+                <!-- ================== BEGIN PAGE LEVEL JS ================== -->
+                <script src="assets/js/apps.min.js"></script>
+                <!-- ================== END PAGE LEVEL JS ================== -->
+
+                <script>
+                    $(document).ready(function() {
+                        App.init();
+                    });
+                </script>
+        </body>
+
+</html>

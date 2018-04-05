@@ -1,0 +1,715 @@
+<!DOCTYPE html>
+<!--[if IE 8]> <html lang="en" class="ie8"> <![endif]-->
+<!--[if !IE]><!-->
+<html lang="en">
+<!--<![endif]-->
+<html lang="en">
+<%- include lib/apicalh01 %>
+<% var pagename="Channel partner" %>
+	<!-- ================== BEGIN PAGE LEVEL STYLE ================== -->
+	<link href="assets/plugins/fullcalendar/fullcalendar.print.css" rel="stylesheet" media='print' />
+	<link href="assets/plugins/fullcalendar/fullcalendar.min.css" rel="stylesheet" />
+	<!-- ================== END PAGE LEVEL STYLE ================== -->
+
+    <script>
+        function startTour() {
+            var tour = introJs()
+            tour.setOption('tooltipPosition', 'auto');
+            tour.setOption('positionPrecedence', ['left', 'right', 'bottom', 'top'])
+            tour.start()
+        }
+     </script>
+	
+
+	<style type="text/css">
+	
+		input,textarea,select{
+			margin: 0 0 10px 0;
+		}	
+			.card{
+ 			border: 2px solid #a1a1a1;
+    		padding: 10px; 
+    		margin-left: auto;
+    		margin-right: auto;
+    		background: #dddddd;
+    		width: 100%;
+    		border-radius: 5px;
+		}	
+
+		#btnshow
+		{
+			position:absolute;
+z-index:100;
+left:10%;
+top:0;
+		}
+	</style>
+<body>
+	<!-- begin #page-loader -->
+	<div id="page-loader" class="fade in"><span class="spinner"></span></div>
+	<!-- end #page-loader -->
+	
+	<!-- begin #page-container -->
+	<div id="page-container" class="fade page-sidebar-fixed page-header-fixed">
+			<%- include lib/apicalh02 %>
+		<!-- begin #sidebar -->
+		<div id="sidebar" class="sidebar ">
+			<!-- begin sidebar scrollbar -->
+			<div data-scrollbar="true" data-height="100%">
+				<!-- begin sidebar user -->
+				<ul class="nav">
+					<li class="nav-profile">
+						<div class="image">
+							<a href="javascript:;"><img src="assets/img/user.png" alt="" /></a>
+						</div>
+						<div class="info">
+							<%=user.enname  %>
+						</div>
+					</li>
+				</ul>
+				<!-- end sidebar user -->
+	<%- include lib/apicalm01 %>
+			</div>
+			<!-- end sidebar scrollbar -->
+		</div>
+		<!-- end #sidebar -->
+		
+		<!-- begin #content -->
+		<div id="content" class="content">
+				<div class="row" >
+			    <!-- begin col-3 -->
+			    <div class="col-md-3 col-sm-6">
+			        <div class="widget widget-stats bg-green  data-step="5" data-intro="This is Total leads tab  onclick of this tab lead list tab will open!"" id="total_lead" onClick="window.location.href='lead_list.html#total_lead';">
+			            <div class="stats-icon stats-icon-lg"><i class="fa fa-users fa-fw"></i></div>
+			            <div class="stats-title">Total Leads </div>
+			            <div class="stats-number">2463</div>
+			            <div class="stats-progress progress">
+                            <div class="progress-bar" style="width: 70.0%;"></div>
+                        </div>
+<!--
+                        <div class="stats-desc">Better than last week (70.1%)</div>
+-->
+			        </div>
+			       <!--  <div onClick="window.location.href='lead_list.html#total_lead';"></div> -->
+
+			    </div>
+			    <!-- end col-3 -->
+
+			    <div class="col-md-3 col-sm-6">
+			        <div class="widget widget-stats bg-blue data-step="6" data-intro="This is Conversion ratio tab ">
+			            <div class="stats-icon stats-icon-lg"><i class="fa fa-exchange  fa-fw"></i></div>
+			            <div class="stats-title">Convertion Ratio</div>
+			            <div class="stats-number">60%</div>
+			            <div class="stats-progress progress">
+                            <div class="progress-bar" style="width: 40.5%;"></div>
+                        </div>
+                      <!--  <div class="stats-desc">Better than last week (40.5%)</div>
+			     -->   </div>
+			    </div>
+			 <!--    end col-3 -->
+			    <!-- begin col-3 -->
+			    <div class="col-md-3 col-sm-6 data-step="7" data-intro="This is Pending Tasks tab!"">
+			        <div class="widget widget-stats bg-purple">
+			            <div class="stats-icon stats-icon-lg"><i class="fa fa-tasks fa-fw"></i></div>
+			            <div class="stats-title">Pending Tasks</div>
+			            <div class="stats-number">20</div>
+			            <div class="stats-progress progress">
+                        <div class="progress-bar" style="width: 20.0%;"></div>
+                        </div>
+<!--
+                        <div class="stats-desc">Better than last week (76.3%)</div>
+-->
+			        </div>
+			    </div>
+			    <!-- end col-3 -->
+			    <!-- begin col-3 -->
+			    <div class="col-md-3 col-sm-6">
+			        <div class="widget widget-stats bg-black">
+			            <div class="stats-icon stats-icon-lg"><i class="fa fa-bar-chart-o fa-fw"></i></div>
+			            <div class="stats-title">Lead Funnel</div>
+			            <div class="stats-number">0</div>
+			            <div class="stats-progress progress">
+                            <div class="progress-bar" style="width: 60.0%;"></div>
+                        </div>
+<!--
+                        <div class="stats-desc">Better than last week (54.9%)</div>
+-->
+			        </div>
+			    </div>
+			    <!-- end col-3 -->
+			</div>
+			<!-- end row -->
+		
+			<!-- begin row -->
+			<div class="row">
+                <!-- begin col-12 -->
+			    <div class="col-md-12">
+									<!-- begin wizard step-1 -->
+									<div>
+                                       
+                                           	<div class="panel panel-inverse">
+			  									<div class="panel-body"  style="margin: 5 0 0 0;">
+			        								<div class="vertical-box  col-md-12">
+			            								<div class="vertical-box-column p-5 col-md-4" style="margin-top: 3px">
+                            								<div id="external-events" class="fc-event-list">
+                                								<div class="panel-group" id="accordion">
+																		<div class="panel panel-danger overflow-hidden">
+																			<div class="panel-heading">
+																				<h3 class="panel-title">
+																					<a class="accordion-toggle accordion-toggle-styled data-step="8" data-intro="This is OverDue Taskstab on click this tab open in drop down onclick particular task,Task pop up opens in this pop up page you can Assign a new tasks. using drag and drop you can schedule your Task meeting!"" data-toggle="collapse" data-parent="#accordion" href="#collapseOne">
+																					    <i class="fa fa-plus-circle pull-right"></i> 
+																						OverDue Tasks
+																					</a>
+																				</h3>
+																			</div>
+																			<div id="collapseOne" class="panel-collapse collapse in">
+																				<a href="#modal-dialog" data-toggle="modal">
+																					<div class="fc-event"  style="margin-left: 10px" >
+							
+																							<label>Task name: </label><label>Meeting</label><br>
+																					
+																							<label>Due date: </label><label>25-Aug-2017</label><br>
+																						
+																						
+																					</div>
+																				</a>
+
+																				<a href="#modal-dialog" data-toggle="modal">
+																					<div class="fc-event"  style="margin-left: 10px">
+																						
+																							<label>Task name: </label><label>Meeting</label><br>
+																					
+																							<label>Due date: </label><label>25-Aug-2017</label><br>
+																							
+																						
+																					</div>
+																				</a>
+
+																				<a href="#modal-dialog" data-toggle="modal">
+																					<div class="fc-event"  style="margin-left: 10px">
+																						
+																							<label>Task name: </label><label>Meeting</label><br>
+																							
+																							<label>Due date: </label><label>25-Aug-2017</label><br>
+																						
+																						
+																					</div>
+																				</a>
+																			</div>
+
+																		</div>
+																		<div class="panel panel-warning overflow-hidden">
+																			<div class="panel-heading">
+																				<h3 class="panel-title">
+																					<a class="accordion-toggle accordion-toggle-styled collapsed" data-toggle="collapse" data-parent="#accordion" href="#collapseTwo">
+																					    <i class="fa fa-plus-circle pull-right"></i> 
+																						Current Tasks
+																					</a>
+																				</h3>
+																			</div>
+																			<div id="collapseTwo" class="panel-collapse collapse">
+																				<a href="#modal-dialog" data-toggle="modal" >
+																					<div class="fc-event" style="margin-left: 10px">
+																						
+																							<label>Task name: </label><label>Meeting</label><br>
+																						
+																							<label>Due date: </label><label>25-Aug-2017</label><br>
+																							
+																						
+																					</div>
+																				</a>
+
+																				<a href="#modal-dialog" data-toggle="modal">
+																					<div class="fc-event"  style="margin-left: 10px">
+																						
+																							<label>Task name: </label><label>Meeting</label><br>
+																					
+																							<label>Due date: </label><label>25-Aug-2017</label><br>
+																						
+																						
+																					</div>
+																				</a>
+
+																				<a href="#modal-dialog" data-toggle="modal">
+																					<div class="fc-event"  style="margin-left: 10px">
+																						
+																							<label>Task name: </label><label>Meeting</label><br>
+																						
+																							<label>Due date: </label><label>25-Aug-2017</label><br>
+																					
+																						
+																					</div>
+																				</a>
+																			</div>
+																		</div>
+																		<div class="panel panel-success overflow-hidden">
+																			<div class="panel-heading">
+																				<h3 class="panel-title">
+																					<a class="accordion-toggle accordion-toggle-styled collapsed" data-toggle="collapse" data-parent="#accordion" href="#collapseThree">
+																					    <i class="fa fa-plus-circle pull-right"></i> 
+																						Upcoming Tasks
+																					</a>
+																				</h3>
+																			</div>
+																			<div id="collapseThree" class="panel-collapse collapse">
+																				<a href="#modal-dialog" data-toggle="modal">
+																					<div class="fc-event"  style="margin-left: 10px">
+																						
+																							<label>Task name: </label><label>Meeting</label><br>
+																					
+																							<label>Due date: </label><label>25-Aug-2017</label><br>
+																						
+																						
+																					</div>
+																				</a>
+
+																				<a href="#modal-dialog" data-toggle="modal">
+																					<div class="fc-event"  style="margin-left: 10px">
+																						
+																							<label>Task name: </label><label>Meeting</label><br>
+																				
+																							<label>Due date: </label><label>25-Aug-2017</label><br>
+																						
+																						
+																					</div>
+																				</a>
+																				<a href="#modal-dialog" data-toggle="modal">
+																					<div class="fc-event"  style="margin-left: 10px">
+																						
+																							<label>Task name: </label><label>Meeting</label><br>
+																						
+																							<label>Due date: </label><label>25-Aug-2017</label><br>
+																					
+																						
+																					</div>
+																				</a>
+																			</div>
+																		</div>
+
+																		<div class="panel panel-primary overflow-hidden">
+																			<div class="panel-heading data-step="9" data-intro="This is Unschedule lead list onclick this toggle menu open onclick particular lead name popup taks open you can assign task here.you can also schedule your lead in calender using drag and drop!"">
+																				<h3 class="panel-title ">
+																					<a class="accordion-toggle accordion-toggle-styled collapsed" data-toggle="collapse" data-parent="#accordion" href="#collapseFour">
+																					    <i class="fa fa-plus-circle pull-right"></i> 
+																						UnScheduled Lead List
+																					</a>
+																				</h3>
+																			</div>
+																			<div id="collapseFour" class="panel-collapse collapse">
+																				<a href="#modal-dialog" data-toggle="modal">
+																					<div class="fc-event"  style="margin-left: 10px">
+																						
+																							<label>Lead name: </label><label>Kastubh</label><br>
+																					
+																							<label>Due date: </label><label>25-Aug-2017</label><br>
+																						
+																						
+																					</div>
+																				</a>
+
+																				<a href="#modal-dialog" data-toggle="modal">
+																					<div class="fc-event"  style="margin-left: 10px">
+																						
+																							<label>Lead name: </label><label>Sachin</label><br>
+																				
+																							<label>Due date: </label><label>25-Aug-2017</label><br>
+																						
+																						
+																					</div>
+																				</a>
+																				<a href="#modal-dialog" data-toggle="modal">
+																					<div class="fc-event"  style="margin-left: 10px">
+																						
+																							<label>Lead name: </label><label>Tejas</label><br>
+																						
+																							<label>Due date: </label><label>25-Aug-2017</label><br>
+																					
+																						
+																					</div>
+																				</a>
+																			</div>
+																		</div><br>
+																		 <a class="btn btn-success btn-icon btn-circle data-step="10" data-intro="This is Floating button onclick this button lead creation popup will open you call add new lead on this popup !"" href="#dialog" data-toggle="modal"  style="float: right;width: 40Px;height: 40px;"><i class="fa fa-plus fa-1x" style="margin-top: 12px;" ></i></a>
+																	</div>															        
+                            								</div>
+                        								</div>
+                        								<div id="calendar" class="vertical-box-column p-5 calendar  col-md-8"><br>
+                        								
+                        								</div>
+			        								</div>
+			    								</div>
+											</div>
+									
+									</div>
+									<!-- end wizard step-1 -->
+								
+                    </div>
+                    <!-- end panel -->
+                </div>
+                <!-- end col-12 -->
+            </div>
+           
+		<!-- end #content -->
+		<div class="modal fade" id="modal-dialog">
+			<div class="modal-dialog">
+				<div class="modal-content">
+					<div class="modal-header">
+						<button type="button" class="close" data-dismiss="modal" aria-hidden="true">×</button>
+						<h4 class="modal-title">Tasks</h4>
+					</div>
+					<div class="modal-body">
+					    <div class="row">
+                            <div class="form-group" >
+				            		<label class="col-md-3">Task Name :</label>
+                                	<div class="col-md-9">
+										<input type="text" name="taskname" placeholder="Task name" class="form-control" value="Meeting" />
+									</div>
+                            </div>
+                            <div class="form-group">
+				            		<label class="col-md-3">Task Description :</label>
+                                	<div class="col-md-9">
+					
+										     <textarea class="form-control" placeholder="Task description" rows="5" value="Meeting about product detail" ></textarea>
+									</div>
+                            </div>
+                            <div class="form-group">
+				            		<label class="col-md-3">Due Date :</label>
+                                	<div class="col-md-9">
+										<input type="text" name="due date" placeholder="due date" class="form-control" value="25-Aug-2017" />
+									</div>
+                            </div>
+                            <div class="form-group" >
+				            		<label class="col-md-3">Status :</label>
+                                	<div class="col-md-9">
+                                        <select class="form-control">
+                                            <option>WIP</option>
+                                            <option>Pending</option>
+                                            <option>ReAssigned</option>
+                                            <option>Rejected</option>
+                                        </select>
+                                    </div>
+                            </div>
+
+                            <div class="form-group" >
+				            		<label class="col-md-3">Assign to :</label>
+                                	<div class="col-md-9">
+                                        <select class="form-control">
+                                            <option>Tejas</option>
+                                            <option>Raman</option>
+                                            <option>Kastubh</option>
+                                            <option>Sachin</option>
+                                        </select>
+                                    </div>
+                            </div>
+                        </div>    
+					</div>
+					<div class="modal-footer">
+						<a href="javascript:;" class="btn btn-sm btn-white" data-dismiss="modal">Close</a>
+						<a href="javascript:;" class="btn btn-sm btn-success" data-dismiss="modal">Save</a>
+					</div>
+				</div>
+			</div>
+		</div>
+<!-- 
+                         <p class="text-center">
+                            &copy; Apical Innovations All Right Reserved 2017
+                        </p> -->
+			<div class="modal" id="dialog">
+								<div class="modal-dialog">
+									<div class="modal-content">
+					
+										<div class="modal-body">
+						                                 <fieldset>
+											                 <legend class="pull-left width-full">Lead Creation
+                                                                <a class="btn btn-default btn-icon btn-circle btn-xs" id="btncross" style="float: right;margin-top: 5px;"><i class="fa fa-times"></i></a>
+                                                             </legend>
+                                                                <div class="row">
+                                                                     <div class="col-md-6">
+	                                                                      <div class="row">
+								                                             <div class="col-md-4">
+																					<div class="form-group">
+																						<label>Lead Name</label>
+																					</div>
+								                                              </div>
+								                                                <!-- begin col-6 -->
+								                                                <div class="col-md-8">
+																					<div class="form-group">
+																						<input type="text" name="phone" placeholder="Enter Name Here" class="form-control" />
+																					</div>
+								                                                </div>
+							                                              </div>
+
+						                                               <div class="row">
+							                                             <div class="col-md-4">
+																				<div class="form-group">
+																					<label>Number</label>
+																				</div>
+							                                              </div>
+							                                                <!-- begin col-6 -->
+							                                                <div class="col-md-8">
+																				<div class="form-group">
+																					<input type="text" name="phone" placeholder="Enter Number Here" class="form-control" />
+																				</div>
+							                                                </div>
+						                                              </div>
+
+
+						                                               <div class="row">
+							                                             <div class="col-md-4">
+																				<div class="form-group">
+																					<label>Email</label>
+																				</div>
+							                                              </div>
+							                                                <!-- begin col-6 -->
+							                                                <div class="col-md-8">
+																				<div class="form-group">
+																					<input type="text" name="phone" placeholder="Enter Email Here" class="form-control" />
+																				</div>
+							                                                </div>
+						                                              </div>
+
+						                                               <div class="row">
+									                                             <div class="col-md-4">
+																						<div class="form-group">
+																							<label>Source</label>
+																						</div>
+									                                              </div>
+									                                                <!-- begin col-6 -->
+									                                                <div class="col-md-8">
+																						<div class="form-group">
+																							<select class="form-control">
+													                                            <option value="" selected>Select a Source</option>
+													                                            <option value="AF">Reference</option>
+													                                            <option value="AL">Upsell</option>
+													                                            <option value="DZ">Cross Sell</option>
+													                                            <option value="AS">website</option>
+													                                        </select>
+																						</div>
+									                                                </div>
+						                                                      </div>
+
+						                                                       <div class="row">
+									                                             <div class="col-md-4">
+																						<div class="form-group">
+																							<label>Sub Source</label>
+																						</div>
+									                                              </div>
+									                                                <!-- begin col-6 -->
+									                                                <div class="col-md-8">
+																						<div class="form-group">
+																							<select class="form-control">
+													                                            <option value="" selected>Select a Sub Source</option>
+													                                            <option value="AF">Reference</option>
+													                                            <option value="AL">Upsell</option>
+													                                            <option value="DZ">Cross Sell</option>
+													                                            <option value="AS">website</option>
+													                                           
+													                                        </select>
+																						</div>
+									                                                </div>
+						                                                    </div>
+
+
+						                                               <div class="row">
+							                                             <div class="col-md-4">
+																				<div class="form-group">
+																					<label>Gender</label>
+																				</div>
+							                                              </div>
+							                                                <!-- begin col-6 -->
+							                                                <div class="col-md-8">
+																				<div class="form-group">
+																					<label class="radio-inline">
+																				       <input type="radio" name="optradio">Male
+																				    </label>
+																				    <label class="radio-inline">
+																				      <input type="radio" name="optradio">Female
+																				    </label>
+														   
+																				</div>
+							                                                </div>
+						                                              </div>
+
+						                                               
+
+						                                               <div class="row">
+								                                                <div class="col-md-4">
+									                                                <div class="form-group">
+																							<label>Address</label>
+																				     </div>	
+						                                                         </div>	
+																			     <div class="col-md-8">
+																					<div class="form-group">
+																						
+																						 <textarea class="form-control" rows="5" id="comment"></textarea>
+
+																					</div>
+								                                                </div>
+								                                        </div>
+
+                                                                     </div>
+                                                                      <div class="col-md-6">
+                                                                              <div class="row">
+									                                             <div class="col-md-4">
+																						<div class="form-group">
+																							<label>Status</label>
+																						</div>
+									                                              </div>
+									                                                <!-- begin col-6 -->
+									                                                <div class="col-md-8">
+																						<div class="form-group">
+																							<select class="form-control">
+													                                            <option value="" selected>Select a Status</option>
+													                                            <option value="AF">Open</option>
+													                                            <option value="AL">Close</option>
+													                                            <option value="DZ">Drop</option>
+													                                        </select>
+																						</div>
+									                                                </div>
+						                                                      </div>
+
+						                                                       <div class="row">
+							                                             <div class="col-md-4">
+																				<div class="form-group">
+																					<label>Stage</label>
+																				</div>
+							                                              </div>
+							                                                <!-- begin col-6 -->
+							                                                <div class="col-md-8">
+																				<div class="form-group">
+																					<select class="form-control">
+											                                            <option value="" selected>Select a Stage</option>
+											                                            <option value="AF">Hot</option>
+											                                            <option value="AL">Warm</option>
+											                                            <option value="DZ">Cold</option>
+											                                           
+											                                        </select>
+																				</div>
+							                                                </div>
+						                                              </div>
+
+                                                                             <div class="row">
+									                                             <div class="col-md-4">
+																						<div class="form-group">
+																							<label>Coupan</label>
+																						</div>
+									                                              </div>
+									                                                <!-- begin col-6 -->
+									                                                <div class="col-md-8">
+																						<div class="form-group">
+																							<select class="form-control">
+													                                            <option value="" selected>Select a Coupan</option>
+													                                            <option value="AF">abc123</option>
+													                                            <option value="AL">abc124</option>
+													                                            <option value="DZ">abc125</option>
+													                                            <option value="AS">abc126</option>
+													                                           
+													                                        </select>
+																						</div>
+									                                                </div>
+						                                                    </div>
+						                                                     <div class="row">
+									                                             <div class="col-md-4">
+																						<div class="form-group">
+																							<label>Assign to</label>
+																						</div>
+									                                              </div>
+									                                                <!-- begin col-6 -->
+									                                                <div class="col-md-8">
+																						<div class="form-group">
+																							<select class="form-control">
+													                                            <option value="" selected>Select a person</option>
+													                                            <option value="AF">Sachin</option>
+													                                            <option value="AL">Tejas</option>
+													                                            <option value="DZ">Raman</option>
+													                                            <option value="AS">Kashtubh</option>
+													                                           
+													                                        </select>
+																						</div>
+									                                                </div>
+						                                                    </div>
+
+						                                              
+
+						                                               <div class="row">
+							                                             <div class="col-md-4">
+																				<div class="form-group">
+																					<label>Next Meeting Date</label>
+																				</div>
+							                                              </div>
+							                                                <!-- begin col-6 -->
+							                                                <div class="col-md-8">
+																				<div class="form-group">
+																				<p><input type="text" id="datepicker1" class="form-control"></p>
+						 	
+																				</div>
+							                                                </div>
+						                                              </div>
+
+                                                                       <div class="row">
+							                                             <div class="col-md-4">
+																				<div class="form-group">
+																					<label>Reference Name</label>
+																				</div>
+							                                              </div>
+							                                                <!-- begin col-6 -->
+							                                                <div class="col-md-8">
+																				<div class="form-group">
+																					<input type="text" name="phone" placeholder="Enter Name Here" class="form-control" />
+																				</div>
+							                                                </div>
+						                                              </div>
+
+						                                               <div class="row">
+							                                             <div class="col-md-4">
+																				<div class="form-group">
+																					<label>Reference Number</label>
+																				</div>
+							                                              </div>
+							                                                <!-- begin col-6 -->
+							                                                <div class="col-md-8">
+																				<div class="form-group">
+																					<input type="text" name="phone" placeholder="Enter Number Here" class="form-control" />
+																				</div>
+							                                                </div>
+						                                              </div>
+                                               
+						                                                
+								                                         
+                                                                     </div>
+                                                                </div>
+						                                           
+						                                            
+								                                       				            
+										                </fieldset>
+											</div>
+										<div class="modal-footer">
+											<a href="javascript:;" class="btn btn-sm btn-white" data-dismiss="modal">Close</a>
+											<a href="javascript:;" class="btn btn-sm btn-success" data-dismiss="modal">Save</a>
+										</div>
+									</div>
+								</div>
+							</div>
+		<!-- ================== BEGIN BASE JS ================== -->
+				<%- include lib/apicalf02.ejs %>	
+	<!-- ================== END BASE JS ================== -->
+	
+	<!-- ================== BEGIN PAGE LEVEL JS ================== -->
+	<script src="assets/plugins/fullcalendar/fullcalendar.min.js"></script>
+	<script src="assets/js/calendar.demo.js"></script>
+	<script src="assets/js/apps.min.js"></script>
+	<!-- ================== END PAGE LEVEL JS ================== -->
+	  <script type="text/javascript" src="assets/js/intro.js"></script>
+
+	 
+	<script>
+		$(document).ready(function() {
+			App.init();
+			Calendar.init();
+			
+		});
+    $( "#datepicker,#datepicker1" ).datepicker();
+  </script>
+
+</body>
+</html>

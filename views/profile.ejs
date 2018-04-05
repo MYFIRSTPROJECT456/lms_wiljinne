@@ -1,0 +1,198 @@
+<!DOCTYPE html>
+<!--[if IE 8]> <html lang="en" class="ie8"> <![endif]-->
+<!--[if !IE]><!-->
+<html lang="en">
+<%- include lib/apicalh01 %>
+<script type="text/javascript">
+ var Screenfields1 = [];
+</script>
+
+<body>
+    <!-- begin #page-loader -->
+    <div id="page-loader" class="fade in"><span class="spinner"></span></div>
+    <!-- end #page-loader -->
+
+    <!-- begin #page-container -->
+    <div id="page-container" class="fade page-sidebar-fixed page-header-fixed">
+        <%- include lib/apicalh02 %>
+        <!-- begin #sidebar -->
+        <div id="sidebar" class="sidebar">
+            <!-- begin sidebar scrollbar -->
+            <div data-scrollbar="true" data-height="100%">
+                <!-- begin sidebar user -->
+                <ul class="nav">
+                    <li class="nav-profile">
+                        <div class="image">
+                            <a href="javascript:;"><img src="assets/img/user.png" alt="" /></a>
+                        </div>
+                        <div class="info">
+                            <%=user.enname%>
+                        </div>
+                    </li>
+                </ul>
+                <!-- end sidebar user -->
+                <%- include lib/apicalm01 %>
+            </div>
+            <!-- end sidebar scrollbar -->
+        </div>
+        <div class="sidebar-bg"></div>
+        <!-- end #sidebar -->
+
+        <!-- begin #content -->
+        <div id="content" class="content">
+
+            <!-- begin breadcrumb -->
+
+            <!-- end breadcrumb -->
+            <!-- begin page-header -->
+
+            <!-- end page-header -->
+            <!-- begin profile-container -->
+            <div class="profile-container">
+                <!-- begin profile-section -->
+                <div class="profile-section">
+                    <!-- begin profile-left -->
+                    <div class="profile-left">
+                        <!-- begin profile-image -->
+                        <div class="profile-image">
+                         <!--   <img src="assets/img/user.png" /> -->
+                            <i class="fa fa-user hide"></i>
+                        </div>
+                        <!-- end profile-image -->
+                        <div class="m-b-10">
+                            <a href="#" class="btn btn-warning btn-block btn-sm">Change Picture</a>
+                        </div>
+                        <!-- begin profile-highlight -->
+                        <div class="profile-highlight">
+
+                        </div>
+                        <!-- end profile-highlight -->
+                    </div>
+                    <!-- end profile-left -->
+                    <!-- begin profile-right -->
+                    <div class="profile-right">
+                        <!-- begin profile-info -->
+                        <div class="profile-info">
+                            <!-- begin table -->
+                            <form class="form-horizontal" action="/" method="POST" id="form" data-parsley-validate="true">
+                                <div class="col-md-6">
+                                    <div class="form-group"> 
+                                        <h4><%- user.enname %></h4>
+                                    </div>
+                                    
+                                    <div class="form-group col-md-12">
+                                        <label class="field col-md-6">Old Password*</label>
+                                        <div class="col-md-6">
+                                            <input class="form-control input-lg" type="Password"  name="oldpass" style="width: 200px;" required/>
+                                        </div>
+                                    </div>
+
+                                    <div class="form-group col-md-12">
+                                        <label class="field col-md-6">New Password*</label>
+                                        <div class="col-md-6">
+                                            <input class="form-control input-lg" type="Password"  name="newpass" style="width: 200px;" required/>
+                                        </div>
+                                    </div>
+
+                                    <div class="form-group col-md-12">
+                                        <label class="field col-md-6">Confirm Password*</label>
+                                        <div class="col-md-6">
+                                            <input class="form-control input-lg" type="Password"  name="confirmpass" style="width: 200px;" required/>
+                                        </div>
+                                    </div>
+                                    
+                                    <div class="form-group col-md-12"">
+                                        <div class="col-md-6">
+                                            
+                                        </div>
+                                        <div class="col-md-6">
+                                          <a href="javascript:changePassword();" class="btn btn-warning btn-block btn-sm" style="width: 200px;">Change Password</a>
+                                      </div>
+                                      
+                                  </div>
+                              </div>
+                              <!-- end table -->
+                          </form>
+                      </div>
+                      <!-- end profile-info -->
+                  </div>
+                  <!-- end profile-right -->
+              </div>
+              <!-- end profile-section -->
+              <!-- begin profile-section -->
+
+              <!-- end profile-section -->
+          </div>
+
+          <!-- end profile-container -->
+      </div>
+      <!-- end #content -->
+                    <!-- <p class="text-center">
+                            &copy; Apical Innovations All Right Reserved 2017
+                        </p> -->
+                        <!-- begin scroll to top btn -->
+                        <a href="javascript:;" class="btn btn-icon btn-circle btn-success btn-scroll-to-top fade" data-click="scroll-top"><i class="fa fa-angle-up"></i></a>
+                        <!-- end scroll to top btn -->
+                    </div>
+                    <!-- end page container -->
+                    <!-- ================== BEGIN BASE JS ================== -->
+                    <%- include lib/apicalf02.ejs %>
+                    <!-- ================== END BASE JS ================== -->
+
+                    <!-- ================== BEGIN PAGE LEVEL JS ================== -->
+                    <script src="assets/js/apps.min.js"></script>
+                    <script src="assets/plugins/parsley/dist/parsley.js"></script>
+
+                    <!-- ================== END PAGE LEVEL JS ================== -->
+
+                    <script>
+                        $(document).ready(function() {
+                            App.init();
+                        });
+
+                        function changePassword(){
+                            //alert("changePassword called ");
+                            var form = $('#form');
+                            form.parsley().validate();
+                            if (form.parsley().isValid()) {
+                              //  alert("Valid");
+                                var formdata1 = $('#form').serializeArray();
+                                
+                                var data1 = formdata1.reduce(function(a, x) {
+                                    a[x.name] = x.value;
+                                    return a;
+                                }, {});
+                                Screenfields1.push(data1);
+                               // alert(JSON.stringify(Screenfields1));
+                                $.ajax({
+                                    type: "POST",
+                                    url: "/changepass",
+                                    timeout: 2000,
+                                    contentType: 'application/json',
+                                    data: JSON.stringify({
+                                        formdata: JSON.stringify(Screenfields1)
+                                    }),
+                                    success: function(data) {
+                                        var fdata = JSON.parse(JSON.stringify(data));
+                                       // alert(fdata);
+                                        if (fdata.status == '1') {
+                                            Screenfields1 = [];
+                                            alert(fdata['message']);
+                                            $('#form').trigger("reset");
+                                            
+                                        } else {
+                                            $('#form').trigger("reset");
+                                            alert(fdata['error']);
+                                            Screenfields1 = [];
+                                        }
+                                    }
+                                });
+                            }else{
+                                alert("Fields not valid");
+                            }
+                            
+                        }
+                    </script>
+                </body>
+
+                </html>

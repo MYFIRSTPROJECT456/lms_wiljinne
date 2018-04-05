@@ -1,0 +1,400 @@
+<!DOCTYPE html>
+<!--[if IE 8]> <html lang="en" class="ie8"> <![endif]-->
+<!--[if !IE]><!-->
+<html lang="en">
+<%- include lib/apicalh01 %>
+<% var pagename="Channel partner" %>
+<!-- ================== BEGIN PAGE LEVEL STYLE ================== -->
+<link href="assets/plugins/bootstrap-datepicker/css/bootstrap-datepicker.css" rel="stylesheet" />
+<link href="assets/plugins/bootstrap-datepicker/css/bootstrap-datepicker3.css" rel="stylesheet" />
+<link href="assets/plugins/bootstrap-timepicker/css/bootstrap-timepicker.min.css" rel="stylesheet" />
+<link href="assets/plugins/bootstrap-daterangepicker/daterangepicker.css" rel="stylesheet" />
+<link href="assets/plugins/bootstrap-eonasdan-datetimepicker/build/css/bootstrap-datetimepicker.min.css" rel="stylesheet" />
+<link href="assets/plugins/bootstrap-wizard/css/bwizard.min.css" rel="stylesheet" />
+<link href="assets/plugins/DataTables/media/css/dataTables.bootstrap.min.css" rel="stylesheet" />
+<link href="assets/plugins/DataTables/extensions/Buttons/css/buttons.bootstrap.min.css" rel="stylesheet" />
+<link href="assets/plugins/DataTables/extensions/Scroller/css/scroller.bootstrap.min.css" rel="stylesheet" />
+<link href="assets/plugins/DataTables/extensions/Responsive/css/responsive.bootstrap.min.css" rel="stylesheet" />
+<!-- ================== END PAGE LEVEL STYLE ================== -->
+<style type="text/css">
+    input,
+    textarea,
+    select,
+    .multipleSelect,
+    .selectpicker,
+    .datepicker {
+        margin: 0 0 10px 0;
+    }
+    
+    .element {
+        position: relative;
+        top: 50%;
+        transform: translateY(-10%);
+    }
+</style>
+
+<script type="text/javascript">
+    var Screenfields = [];
+    var currentcount = 0;
+    var selectedIds = [];
+    var groupcount = 1;
+</script>
+
+<body>
+    <!-- begin #page-loader -->
+    <div id="page-loader" class="fade in"><span class="spinner"></span></div>
+    <!-- end #page-loader -->
+
+    <!-- begin #page-container -->
+    <div id="page-container" class="fade page-sidebar-fixed page-header-fixed">
+        <!-- begin #header -->
+        <%- include lib/apicalh02 %>
+        <!-- end #header -->
+
+        <!-- begin #sidebar -->
+        <div id="sidebar" class="sidebar">
+            <!-- begin sidebar scrollbar -->
+            <div data-scrollbar="true" data-height="100%">
+                <!-- begin sidebar user -->
+                <ul class="nav">
+                    <li class="nav-profile">
+                        <div class="image">
+                            <a href="#"><img src="assets/img/user.png" alt="" /></a>
+                        </div>
+                        <div class="info">
+                            <%=user.enname  %>
+                        </div>
+                    </li>
+                </ul>
+                <!-- end sidebar user -->
+                <%- include lib/apicalm01 %>
+            </div>
+            <!-- end sidebar scrollbar -->
+        </div>
+        <!-- end #sidebar -->
+
+        <!-- begin #content -->
+        <div id="content" class="content">
+            <!-- begin breadcrumb -->
+
+            <!-- end breadcrumb -->
+            <!-- begin row -->
+            <div class="row">
+                <!-- begin col-12 -->
+                <div class="col-md-12">
+                    <!-- begin panel -->
+                    <div class="panel panel-inverse">
+                        <div class="panel-heading">
+                            <div class="panel-heading-btn element">
+                               <% if(user.syno != '1'){%> <a href="javascript:onValidate();" class="btn btn-xl btn-icon btn-circle btn-success"><i class="fa fa-save" ></i></a> <%}%>
+                                <a href="javascript:print();" class="btn btn-xl btn-icon btn-circle btn-success" id="print"><i class="fa fa-print" ></i></a>
+                                <a href="javascript:reset();" class="btn btn-xl btn-icon btn-circle btn-success"><i class="fa fa-refresh" ></i></a>
+                                <a href="javascript:approve();" class="btn btn-xl btn-icon btn-circle btn-success"><i class="fa fa-remove" ></i></a>
+                            </div>
+                            <h4 class="panel-title">User management</h4>
+                        </div>
+                        <div class="panel-body">
+                            <form action="/" method="POST" name="form-wizard" id="form1" data-parsley-validate="true">
+                                <div id="wizard">
+                                    <ol>
+                                        <li>
+                                            User List
+                                        </li>
+                                        <li>
+                                            User Info
+                                        </li>
+                                        <li>
+                                            Contact Info
+                                        </li>
+                                        <li>
+                                            Access Control
+                                        </li>
+                                    </ol>
+
+                                    <!-- begin wizard step-1 -->
+                                    <div>
+
+                                        <!-- begin row -->
+                                        <div class="row">
+                                            <div class="panel-body">
+                                                <table id="data-table1" class="table table-striped table-bordered">
+                                                    <thead>
+                                                        <tr>
+                                                            <th>User Name</th>
+                                                            <th>Address</th>
+                                                            <th>Mobile</th>
+                                                            <th>Email</th>
+                                                            <th>Manager</th>
+                                                        </tr>
+                                                    </thead>
+
+                                                </table>
+                                            </div>
+                                        </div>
+                                        <!-- end row -->
+
+                                    </div>
+                                    <!-- end wizard step-1 -->
+                                    <!-- begin wizard step-2 -->
+                                    <div>
+                                        <!-- begin row -->
+                                        <div class="row">
+                                            <div class="row">
+                                                <div class="form-group">
+                                                    <label class="col-md-2">User Name</label>
+                                                    <div class="col-md-4">
+                                                        <input type="text" name="user_name" placeholder="Enter Name Here" class="form-control" required />
+                                                    </div>
+                                                </div>
+                                            </div>
+                                            <div class="row">
+                                                <div class="form-group">
+                                                    <label class="col-md-2">Gender</label>
+                                                    <div class="col-md-4">
+                                                        <label class="radio-inline">
+                                                            <input type="radio" name="gender" value="0" checked>Male
+                                                        </label>
+                                                        <label class="radio-inline">
+                                                            <input type="radio" name="gender" value="0">Female
+                                                        </label>
+                                                    </div>
+                                                </div>
+                                            </div>
+                                            <div class="row">
+                                                <div class="form-group">
+                                                    <label class="col-md-2">DOB</label>
+                                                    <div class="col-md-4">
+                                                        <input type="text" name="dob" class="form-control datepicker" >
+                                                    </div>
+                                                </div>
+                                            </div>
+                                            <div class="row">
+                                                <div class="form-group">
+                                                    <label class="col-md-2">DOJ</label>
+                                                    <div class="col-md-4">
+                                                        <input type="text"  name="doj" class="form-control datepicker"  >
+                                                    </div>
+                                                </div>
+                                            </div>
+                                        </div>
+                                        <!-- end col-6 -->
+                                        <!-- end row -->
+                                    </div>
+                                    <!-- end wizard step-2 -->
+
+                                    <div>
+                                        <div class="row">
+
+                                            <div class="row">
+                                                <div class="form-group">
+                                                    <label class="col-md-2">Address</label>
+                                                    <div class="col-md-4">
+                                                        <textarea class="form-control" name="address" rows="5" id="address" required></textarea>
+                                                    </div>
+                                                </div>
+                                            </div>
+                                            <div class="row">
+                                                <div class="form-group">
+                                                    <label class="col-md-2">Email</label>
+                                                    <div class="col-md-4">
+                                                        <input type="email" name="email" placeholder="Enter Email Here" class="form-control" required/>
+                                                    </div>
+                                                </div>
+                                            </div>
+                                            <div class="row">
+                                                <div class="form-group">
+                                                    <label class="col-md-2">Mobile No</label>
+                                                    <div class="col-md-4">
+                                                        <input type="text" name="mobile" placeholder="Enter number Here" class="form-control"  maxlength="13" minlength="8"  required />
+                                                    </div>
+                                                </div>
+                                            </div>
+                                        </div>
+                                    </div>
+
+                                    <div>
+                                     
+                                        <div class="row">
+
+                                            <div class="row">
+                                                <div class="form-group">
+                                                    <label class="col-md-2">Role</label>
+                                                    <div class="col-md-4">
+                                                        <select class="form-control" name="role" api="v1/getroles">
+                                                            <option value="NA" selected>NA</option>
+                                                            
+                                                        </select>
+                                                    </div>
+                                                </div>
+                                            </div>
+                                            <div class="row">
+                                                <div class="form-group">
+                                                    <label class="col-md-2">Reporting to</label>
+                                                    <div class="col-md-4">
+                                                        <select class="form-control rto" name="reporting_to" api="v1/getreporting">
+                                                         <option value="NA" selected>NA</option>
+
+                                                     </select>
+                                                 </div>
+                                             </div>
+                                         </div>
+                                         
+
+                                     </div>
+
+                                 </div>
+                                 
+                             </div>
+                         </form>
+                     </div>
+                 </div>
+                 <!-- end panel -->
+             </div>
+             <!-- end col-12 -->
+         </div>
+         <!-- end row -->
+     </div>
+                    <!-- <p class="text-center">
+                            &copy; Apical Innovations All Right Reserved 2017
+                        </p> -->
+                        <!-- end #content -->
+                        <!-- begin scroll to top btn -->
+                        <a href="javascript:;" class="btn btn-icon btn-circle btn-success btn-scroll-to-top fade" data-click="scroll-top"><i class="fa fa-angle-up"></i></a>
+                        <!-- end scroll to top btn -->
+                    </div>
+                    <!-- end page container -->
+                    <!-- ================== BEGIN BASE JS ================== -->
+                    <%- include lib/apicalf02.ejs %>
+                    <!-- ================== END BASE JS ================== -->
+
+                    <!-- ================== BEGIN PAGE LEVEL JS ================== -->
+                    <script src="assets/plugins/bootstrap-wizard/js/bwizard.js"></script>
+                    <script src="assets/js/form-wizards.demo.min.js"></script>
+                    <script src="assets/plugins/DataTables/media/js/jquery.dataTables.js"></script>
+                    <script src="assets/plugins/DataTables/media/js/dataTables.bootstrap.min.js"></script>
+                    <script src="assets/plugins/DataTables/extensions/Buttons/js/dataTables.buttons.min.js"></script>
+                    <script src="assets/plugins/DataTables/extensions/Buttons/js/buttons.bootstrap.min.js"></script>
+                    <script src="assets/plugins/DataTables/extensions/Buttons/js/buttons.flash.min.js"></script>
+                    <script src="assets/plugins/DataTables/extensions/Buttons/js/jszip.min.js"></script>
+                    <script src="assets/plugins/DataTables/extensions/Scroller/js/dataTables.scroller.min.js"></script>
+                    <script src="assets/plugins/DataTables/extensions/Buttons/js/pdfmake.min.js"></script>
+                    <script src="assets/plugins/DataTables/extensions/Buttons/js/vfs_fonts.min.js"></script>
+                    <script src="assets/plugins/parsley/dist/parsley.js"></script>
+                    <script src="assets/js/form-wizards-validation.demo.min.js"></script>
+                    <script src="assets/plugins/DataTables/extensions/Buttons/js/buttons.html5.min.js"></script>
+                    <script src="assets/plugins/DataTables/extensions/Buttons/js/buttons.print.min.js"></script>
+                    <script src="assets/plugins/DataTables/extensions/Responsive/js/dataTables.responsive.min.js"></script>
+                    <script src="assets/js/apical/table-manage-scroller.demo.js"></script>
+                    <script src="assets/js/apps.min.js"></script>
+                    <!-- ================== END PAGE LEVEL JS ================== -->
+
+                    <script>
+                        $(document).ready(function() {
+                            App.init();
+                            FormWizardValidation.init();
+                            $(".datepicker").datepicker({ dateFormat: 'dd/mm/yy' });
+
+                            $('select').each(
+                                function(index){  
+                                    var input = $(this);
+                                    var api=input.attr('api');
+                                    /*alert('Api: ' + input.attr('api'));*/
+                                    $.ajax({
+                                        type: "GET",
+                                        url: ""+api,
+                                        timeout: 2000,
+                                        contentType: 'application/json',
+                                        success: function(data)
+                                        {
+                                            helpers.buildDropdown(
+                                              JSON.parse(JSON.stringify(data)),
+                                              input,
+                                              'Select an option'
+                                              );
+                                        }
+                                    });
+                                    
+                                });
+                        });
+
+                        $(window).load(function(e) {
+                            TableManageScroller1.init(<%= scrndtl.col2 %>);
+                        });
+                    </script>
+                    <script>
+                        function reset() {
+                            document.getElementById("form1").reset();
+                            $('#data-table1').DataTable().ajax.reload();
+                            $('.rto').fastselect();
+                        };
+
+                        function onValidate() {
+                            var form = $('#form1');
+                            form.parsley().validate();
+                            
+                            if (form.parsley().isValid()) {
+                          //  alert('valid');
+                          var formdata = $('#form1').serializeArray();
+                        //    alert(JSON.stringify(formdata));
+                        var data = formdata.reduce(function(a, x) {
+                            a[x.name] = x.value;
+                            return a;
+                        }, {});
+                        Screenfields.push(data);
+                        $.ajax({
+                            type: "POST",
+                            url: "/savedata",
+                            timeout: 2000,
+                            contentType: 'application/json',
+                            data: JSON.stringify({
+                                scrid: <%= scrndtl.col2 %>,
+                                formdata: JSON.stringify(Screenfields)
+                            }),
+                            success: function(data) {
+                                var fdata = JSON.parse(JSON.stringify(data));
+                                if (fdata.status == '1') {
+                                    Screenfields = [];
+                                    $('#form1').trigger("reset");
+                                    alert("Data saved successfully");
+
+
+                                    $('select').each(
+                                        function(index){  
+                                            var input = $(this);
+                                            var api=input.attr('api');
+                                            /*alert('Api: ' + input.attr('api'));*/
+                                            $.ajax({
+                                                type: "GET",
+                                                url: ""+api,
+                                                timeout: 2000,
+                                                contentType: 'application/json',
+                                                success: function(data)
+                                                {
+                                                    helpers.buildDropdown(
+                                                      JSON.parse(JSON.stringify(data)),
+                                                      input,
+                                                      'Select an option'
+                                                      );
+                                                }
+                                            });
+                                            
+                                        });
+
+
+
+                                    
+                                } else {
+                                        //$('#form1').trigger("reset");
+                                        alert(fdata.err_msg);
+                                        Screenfields = [];
+                                    }
+                                }
+                            });
+                    } else {
+                        alert('Form not valid');
+                    }
+                };
+            </script>
+        </body>
+
+        </html>

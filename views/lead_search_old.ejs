@@ -1,0 +1,393 @@
+<!DOCTYPE html>
+<!--[if IE 8]> <html lang="en" class="ie8"> <![endif]-->
+<!--[if !IE]><!-->
+<html lang="en">
+<!--<![endif]-->
+<%- include lib/apicalh01 %>
+<% var pagename="Channel partner" %>
+<!--   <link href="assets/css/bootstrap-responsive.min.css" rel="stylesheet"> -->
+<script>
+    function startTour() {
+        var tour = introJs()
+        tour.setOption('tooltipPosition', 'auto');
+        tour.setOption('positionPrecedence', ['left', 'right', 'bottom', 'top'])
+        tour.start()
+    }
+
+</script>
+<script type="text/javascript">
+    var History=[];
+    
+</script>
+<style>
+    p {
+        margin: 0 0 5px 0;
+    }
+    
+    .form-group {
+        margin-bottom: 0;
+    }
+    
+    .vertical-menu {
+        width: 250px;
+        height: 300px;
+        overflow-y: auto;
+    }
+    
+    .vertical-menu a {
+        background-color: #eee;
+        color: black;
+        display: block;
+        padding: 12px;
+        text-decoration: none;
+    }
+    
+    .vertical-menu a:hover {
+        background-color: #ccc;
+    }
+    
+    .vertical-menu a.active {
+        background-color: #4CAF50;
+        color: white;
+    }
+    
+    .card {
+        /*border: 0.1px solid #a1a1a1;*/
+        padding: 10px 10px;
+        background: #FDFEFE;
+        width: 90%;
+        border-radius: 3px;
+        margin: 0 0 5px 0;
+    }
+    
+    .card1 {
+        border: 1px solid #a1a1a1;
+        padding: 10px 10px;
+        /* background: #dddddd;*/
+        width: 90%;
+        border-radius: 3px;
+    }
+    
+    input[type=text] {
+        width: 130px;
+        box-sizing: border-box;
+        border: 2px solid #ccc;
+        border-radius: 4px;
+        font-size: 16px;
+        background-color: white;
+        background-image: url('searchicon.png');
+        background-position: 10px 10px;
+        background-repeat: no-repeat;
+        padding: 12px 20px 12px 40px;
+        -webkit-transition: width 0.4s ease-in-out;
+        transition: width 0.4s ease-in-out;
+    }
+    
+    input[type=text]:focus {
+        width: 100%;
+    }
+    
+    * {
+        box-sizing: border-box;
+    }
+    
+    #myInput {
+        background-image: url('searchblack.png');
+        /*                background-position: 10px 12px;*/
+        background-repeat: no-repeat;
+        width: 100%;
+        font-size: 16px;
+        padding: 8px 20px 8px 40px;
+        border: 1px solid #ddd;
+        margin-bottom: 12px;
+    }
+    
+    #myUL {
+        list-style-type: none;
+        padding: 0;
+        margin: 0;
+    }
+    
+    #myUL li a {
+        border: 1px solid #ddd;
+        margin-top: -1px;
+        /* Prevent double borders */
+        background-color: #f6f6f6;
+        padding: 12px;
+        text-decoration: none;
+        font-size: 12px;
+        color: black;
+        display: block
+    }
+    
+    #myUL li a.header {
+        background-color: #e2e2e2;
+        cursor: default;
+    }
+    
+    #myUL li a:hover:not(.header) {
+        background-color: #eee;
+    }
+    
+    nav ul {
+        height: 450px;
+    }
+    
+    nav ul {
+        overflow: hidden;
+        overflow-y: scroll;
+    }
+</style>
+
+<body>
+    <!-- begin #page-loader -->
+    <div id="page-loader" class="fade in"><span class="spinner"></span></div>
+    <!-- end #page-loader -->
+
+    <!-- begin #page-container -->
+    <div id="page-container" class="fade page-sidebar-fixed page-header-fixed">
+        <%- include lib/apicalh02 %>
+        <!-- begin #sidebar -->
+        <div id="sidebar" class="sidebar">
+            <!-- begin sidebar scrollbar -->
+            <div data-scrollbar="true" data-height="100%">
+                <!-- begin sidebar user -->
+                <ul class="nav">
+                    <li class="nav-profile">
+                        <div class="image">
+                            <a href="javascript:;"><img src="assets/img/user.png" alt="" /></a>
+                        </div>
+                        <div class="info">
+                          <%=user.enname  %>
+                      </div>
+                  </li>
+              </ul>
+              <!-- end sidebar user -->
+              <%- include lib/apicalm01 %>
+          </div>
+          <!-- end sidebar scrollbar -->
+      </div>
+      <!-- end #sidebar -->
+
+      <!-- begin #content -->
+      <div id="content" class="content">
+
+        <!-- end breadcrumb -->
+        <div class="panel panel-inverse">
+            <div class="panel-heading">
+                <div class="panel-heading-btn">
+                    <a href="javascript:;" class="btn btn-xs btn-icon btn-circle btn-default" data-click="panel-expand"><i class="fa fa-expand"></i></a>
+
+                    <a href="javascript:;" class="btn btn-xs btn-icon btn-circle btn-danger" data-click="panel-remove"><i class="fa fa-times"></i></a>
+                </div>
+                <h4 class="panel-title">Lead search</h4>
+
+            </div>
+            <div class="panel-body" style="background-color: #ededed">
+
+                <div class="row">
+                    <div class="col-md-4">
+                        <input type="text" id="myInput" onkeyup="myFunction();" placeholder="Filter.." title="Type in a name">
+                        <nav>
+                            <ul id="myUL" class="xyz" data-step="3" data-intro="onclick of particular list,lead history of indivisual person will open. and on click update button update page will open!">
+
+                                <%
+                                fields.forEach (function(srvreq){
+                                %>
+
+                                <!-- <li class="card" onclick="cardclick(this);" id="<%= srvreq.txnid %>"> -->
+                                <li class="card" id="<%= srvreq.txnid %>">
+                                    <div class="row">
+                                        <div class="col-md-12">
+                                            <div class="col-md-8">
+                                                <h5> <%=srvreq.leadname %></h5>
+                                                <p>
+                                                    <%=srvreq.email %>
+                                                </p>
+                                            </div>
+                                            <div class="col-md-3">
+                                                <p>
+                                                    <%=srvreq.nmd %>
+                                                </p>
+                                                <p>
+                                                    <button type="button" class="btn btn-default btn-sm" onclick="onUpdate(this);" id="<%= srvreq.leadid %>">Update</button>
+                                                </p>
+                                            </div>
+                                        </div>
+                                    </div>
+                                </li>
+
+                                <%   }); %>
+                            </ul>
+                        </nav>
+                    </div>
+
+                    <div class="col-md-8" id="card1">
+                        <h4 style="text-align: center;">History</h4>
+                        <!--   <div  class="content" id="content"> -->
+                        <ul id="hist_list" class="timeline">
+                            <%
+                            history.forEach (function(srvreq){
+                            %>
+                            <li>
+                                <!-- begin timeline-time -->
+                                <div class="timeline-time">
+
+                                    <span class="date"><small><%=srvreq.date %></small></span>
+                                </div>
+                                <!-- end timeline-time -->
+                                <!-- begin timeline-icon -->
+                                <div class="timeline-icon">
+                                    <a href="javascript:;"><i class="fa fa-paper-plane"></i></a>
+                                </div>
+                                <!-- end timeline-icon -->
+                                <!-- begin timeline-body -->
+                                <div class="timeline-body">
+                                    <div class="timeline-header">
+                                        <span class="userimage"><img src="assets/img/user.png" alt="" /></span>
+                                        <span class="username"><a href="javascript:;"><%=srvreq.Leadname %></a> <small></small></span>
+                                        <!--  <span class="pull-right text-muted">18 Views</span> -->
+                                    </div>
+                                    <div class="timeline-content">
+
+                                        <p><strong>Status:</strong>
+                                            <%=srvreq.LeadStatus %>
+                                        </p>
+                                        <p><strong>Communication Comment:</strong>
+                                            <%=srvreq.comment %>
+                                        </p>
+                                        <p><strong>Mail:</strong>
+                                            <%=srvreq.email %>
+                                        </p>
+                                        <p><strong>Reference:</strong>
+                                            <%=srvreq.reference %>
+                                        </p>
+                                    </div>
+
+                                </div>
+                                <!-- end timeline-body -->
+                            </li>
+                            <%   }); %>
+
+                        </ul>
+                        <!-- end timeline -->
+                        <!--  </div> -->
+
+                    </div>
+
+                </div>
+            </div>
+        </div>
+    </div>
+                    <!--  <p class="text-center">
+                            &copy; Apical Innovations All Right Reserved 2017
+                        </p> -->
+                        <!-- end #content -->
+                        <!-- begin scroll to top btn -->
+                        <a href="javascript:;" class="btn btn-icon btn-circle btn-success btn-scroll-to-top fade" data-click="scroll-top"><i class="fa fa-angle-up"></i></a>
+                        <!-- end scroll to top btn -->
+                    </div>
+                    <!-- end page container -->
+                    <!-- ================== BEGIN BASE JS ================== -->
+                    <%- include lib/apicalf02.ejs %>
+                    <!-- ================== END BASE JS ================== -->
+
+                    <!-- ================== BEGIN PAGE LEVEL JS ================== -->
+                    <script src="https://maps.googleapis.com/maps/api/js?v=3.exp&amp;sensor=false"></script>
+                    <script src="assets/js/timeline.demo.min.js"></script>
+                    <script src="assets/js/apps.min.js"></script>
+                    <!-- ================== END PAGE LEVEL JS ================== -->
+                    <script type="text/javascript" src="assets/js/intro.js"></script>
+
+                    <script>
+                        $(document).ready(function() {
+                            App.init();
+                        // $("#card1").hide();
+                        /*      Timeline.init();*/
+                    });
+                </script>
+
+                <script src="/javascripts/application.js" type="text/javascript">
+                    var ul = document.getElementById('ulfilter');
+
+                    for (var i = 1; i <= 10; i++) {
+                        var li = document.createElement("li");
+                        li.className = "file";
+
+                        var a = document.createElement("a");
+                        a.innerHTML = "Subfile " + i;
+
+                        li.appendChild(a);
+                        ul.appendChild(li);
+                    }
+                </script>
+
+                <script>
+                    function myFunction() {
+                        var input, filter, ul, li, a, i, x;
+                        input = document.getElementById("myInput");
+                        filter = input.value.toUpperCase();
+                        ul = document.getElementById("myUL");
+                        li = ul.getElementsByTagName("li");
+                        for (i = 0; i < li.length; i++) {
+                            x = li[i].getElementsByTagName("div")[0];
+                            a = x.getElementsByTagName("h5")[0];
+                            if (a.innerHTML.toUpperCase().indexOf(filter) > -1) {
+                                li[i].style.display = "";
+                            } else {
+                                li[i].style.display = "none";
+                            }
+                        }
+                    }
+                </script>
+
+                <script type="text/javascript">
+                 
+                    function cardclick(item) {
+                        var txnid = $(item).attr("id");
+                      //  alert(txnid);
+                      $.ajax({
+                        type: "POST",
+                        url: "/historydata",
+                        timeout: 2000,
+                        contentType: 'application/json',
+                        data: JSON.stringify({
+                            id: txnid
+                        }),
+                        success: function(response) {
+                                // $('#hist_list').load('lead_search.ejs #hist_list');
+                                // $("#card1").show();
+                                // $('#hist_list').appendJavaScript("$('ul').listview()");
+                                var hist = JSON.parse(JSON.stringify(response));
+                                console.log(JSON.stringify(response));
+                                for (var i = 0; i < hist.history.length; i++) {
+                                 //   alert("history ka 0 : " + JSON.stringify(hist.history[i]));
+                             }
+                         }
+                     });
+                  };
+
+                  function onUpdate(btn) {
+                    var txnid = $(btn).attr("id");
+                    console.log("update button clicked ", txnid);
+                     //   alert("update button clicked " + txnid);
+                     $.ajax({
+                        type: "POST",
+                        url: "/addldid",
+                        timeout: 2000,
+                        contentType: 'application/json',
+                        data: JSON.stringify({
+                            lid: txnid
+                        }),
+                        success: function(data) {
+                            var fdata = JSON.parse(JSON.stringify(data));
+                            console.log("update resp", fdata);
+                            window.location = "/updatesch";
+                        }
+                    });
+                 };
+             </script>
+
+         </body>
+
+         </html>
